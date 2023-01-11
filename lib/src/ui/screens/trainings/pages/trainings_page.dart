@@ -46,7 +46,9 @@ class _TrainingsPageState extends State<TrainingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TrainingsAppBar(title: LocaleKeys.trainingDiary.tr()),
+      appBar: TrainingsAppBar(
+        title: LocaleKeys.trainingDiary.tr(),
+      ),
       body: BlocConsumer<TrainingsCubit, TrainingsState>(
         bloc: _trainingsCubit,
         listener: (context, state) {
@@ -73,24 +75,14 @@ class _TrainingsPageState extends State<TrainingsPage> {
           }, emptyList: () {
             return EmptyListAddButton(
               title: 'Добавить тренировку',
-              onPressed: () {
-                AddTrainingForm(
-                    firstButtonText: 'Очистить',
-                    onFirstButtonTap: _clearTextField,
-                    titleController: _titleController,
-                    weekDayController: _weekDayController,
-                    context: context,
-                    secondButtonText: 'Добавить',
-                    onSecondButtonTap: () {
-                      _addTraining(
-                        Training(
-                          _titleController.text,
-                          _weekDayController.text,
-                          [],
-                        ),
-                      );
-                    }).openDialog();
-              },
+              onPressed: () => showAddingForm(
+                firstButtonText: 'Очистить',
+                secondButtonText: 'Добавить',
+                onFirstButtonTap: _clearTextField,
+                onSecondButtonTap: () => _addTraining(
+                  Training(_titleController.text, _weekDayController.text, []),
+                ),
+              ),
             );
           }, error: (message) {
             return Center(
@@ -102,24 +94,14 @@ class _TrainingsPageState extends State<TrainingsPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          AddTrainingForm(
-              firstButtonText: 'Очистить',
-              onFirstButtonTap: _clearTextField,
-              titleController: _titleController,
-              weekDayController: _weekDayController,
-              context: context,
-              secondButtonText: 'Добавить',
-              onSecondButtonTap: () {
-                _addTraining(
-                  Training(
-                    _titleController.text,
-                    _weekDayController.text,
-                    [],
-                  ),
-                );
-              }).openDialog();
-        },
+        onPressed: () => showAddingForm(
+          firstButtonText: 'Очистить',
+          secondButtonText: 'Добавить',
+          onFirstButtonTap: _clearTextField,
+          onSecondButtonTap: () => _addTraining(
+            Training(_titleController.text, _weekDayController.text, []),
+          ),
+        ),
       ),
     );
   }
@@ -140,23 +122,35 @@ class _TrainingsPageState extends State<TrainingsPage> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               _titleController.text = trainings[index].title ?? '';
               _weekDayController.text = trainings[index].weekDay ?? '';
-              AddTrainingForm(
+              showAddingForm(
                 firstButtonText: 'Очистить',
-                onFirstButtonTap: _clearTextField,
-                titleController: _titleController,
-                weekDayController: _weekDayController,
-                context: context,
                 secondButtonText: 'Изменить',
-                onSecondButtonTap: () => _renameTraining(
-                  trainings[index],
-                ),
-              ).openDialog();
+                onFirstButtonTap: _clearTextField,
+                onSecondButtonTap: () => _renameTraining(trainings[index]),
+              );
             });
           },
           onDeleteTapped: () => _deleteTraining(trainings[index]),
         );
       }),
     );
+  }
+
+  void showAddingForm({
+    required Function() onSecondButtonTap,
+    String? firstButtonText,
+    String? secondButtonText,
+    Function()? onFirstButtonTap,
+  }) {
+    AddTrainingForm(
+            firstButtonText: firstButtonText,
+            onFirstButtonTap: onFirstButtonTap,
+            titleController: _titleController,
+            weekDayController: _weekDayController,
+            context: context,
+            secondButtonText: secondButtonText ?? '',
+            onSecondButtonTap: onSecondButtonTap)
+        .openDialog();
   }
 
   void _clearTextField() {

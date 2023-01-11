@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../../core/navigation/router.gr.dart';
-import '../../../../data_sources/provider/isar_provider.dart';
 import '../../../../models/trainings/training_model.dart';
-import '../../../../repositories/trainings/trainings_repositiry.dart';
-import '../../../widgets/adding_form/add_traininging_form.dart';
-import '../../../widgets/app_bar/trainings_app_bar.dart';
 
 class SingleTraining extends StatefulWidget {
   const SingleTraining({
@@ -34,23 +28,6 @@ class SingleTraining extends StatefulWidget {
 }
 
 class _SingleTrainingState extends State<SingleTraining> {
-  // late TextEditingController _weekDayController;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _titleController = TextEditingController();
-  //   _weekDayController = TextEditingController();
-  //   // final isarProvider = IsarProvider();
-  //   // trainingsRepository = TrainingsRepositoryImpl(isarProvider);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _titleController.dispose();
-  //   _weekDayController.dispose();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final titleController = TextEditingController(text: widget.title);
@@ -115,27 +92,24 @@ class _SingleTrainingState extends State<SingleTraining> {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        PopupMenuButton(itemBuilder: (BuildContext context) {
-          return [
-            _popUpMenuItem(
+        PopupMenuButton(
+          itemBuilder: (BuildContext context) {
+            return [
+              _popUpMenuItem(
                 value: 'Изменить',
                 onTap: () {
-                  // await AddTrainingForm(
-                  //         context: context, saveButtonText: 'Изменить')
-                  //     .openDialog(titleController, weekDayController);
                   widget.onChangeTapped?.call();
-                  // // WidgetsBinding.instance.addPostFrameCallback((_) {
-                  // //   openDialog(titleController, weekDayController);
-                  // // });
-                }),
-            _popUpMenuItem(
+                },
+              ),
+              _popUpMenuItem(
                 value: 'Удалить',
                 onTap: () {
                   widget.onDeleteTapped?.call();
-                  // context.read<IsarProvider>().deleteTraining(widget.training);
-                }),
-          ];
-        })
+                },
+              ),
+            ];
+          },
+        )
       ],
     );
   }
@@ -146,7 +120,6 @@ class _SingleTrainingState extends State<SingleTraining> {
   }) {
     return PopupMenuItem(
       onTap: onTap,
-      // value: value,
       child: Text(value),
     );
   }
@@ -169,56 +142,4 @@ class _SingleTrainingState extends State<SingleTraining> {
       ],
     );
   }
-
-  // Future<String?> openDialog(TextEditingController titleController,
-  //         TextEditingController weekDayController) =>
-  //     showDialog<String>(
-  //       context: context,
-  //       builder: (context) => AlertDialog(
-  //         title: const Text(
-  //             'Введите название тренировки(например: "Спина - плечи") и день недели:'),
-  //         content: Wrap(children: [
-  //           Column(
-  //             children: [
-  //               TextFormField(
-  //                 autofocus: true,
-  //                 decoration: const InputDecoration(hintText: 'Название'),
-  //                 controller: titleController,
-  //               ),
-  //               TextFormField(
-  //                 autofocus: true,
-  //                 decoration: const InputDecoration(hintText: 'День недели'),
-  //                 controller: weekDayController,
-  //               ),
-  //             ],
-  //           ),
-  //         ]),
-  //         actions: [
-  //           TextButton(
-  //             onPressed: () {
-  //               if (weekDayController.text.isEmpty) {
-  //                 weekDayController.text = 'Не указано(день недели)';
-  //               }
-  //               _renameTraining(
-  //                   Training(titleController.text, weekDayController.text,
-  //                       widget.exercises),
-  //                   titleController,
-  //                   weekDayController);
-  //             },
-  //             child: const Text('Изменить'),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-
-  // void _renameTraining(Training training, TextEditingController titleController,
-  //     TextEditingController weekDayController) {
-  //   MainRouter().pop(titleController.text);
-  //   final updateTraining = widget.training;
-  //   updateTraining.title = titleController.text;
-  //   updateTraining.weekDay = weekDayController.text;
-  //   context.read<IsarProvider>().renameTraining(updateTraining);
-  //   titleController.clear();
-  //   weekDayController.clear();
-  // }
 }

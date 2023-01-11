@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/navigation/main_router.dart';
+import '../../../models/trainings/training_model.dart';
+
 class AddTrainingForm {
   const AddTrainingForm({
     required this.firstButtonText,
