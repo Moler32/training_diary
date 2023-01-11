@@ -74,7 +74,22 @@ class _TrainingsPageState extends State<TrainingsPage> {
             return EmptyListAddButton(
               title: 'Добавить тренировку',
               onPressed: () {
-                // _addTraining(trainings);
+                AddTrainingForm(
+                    firstButtonText: 'Очистить',
+                    onFirstButtonTap: _clearTextField,
+                    titleController: _titleController,
+                    weekDayController: _weekDayController,
+                    context: context,
+                    secondButtonText: 'Добавить',
+                    onSecondButtonTap: () {
+                      _addTraining(
+                        Training(
+                          _titleController.text,
+                          _weekDayController.text,
+                          [],
+                        ),
+                      );
+                    }).openDialog();
               },
             );
           }, error: (message) {

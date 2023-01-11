@@ -62,7 +62,11 @@ class TrainingsCubit extends Cubit<TrainingsState> with IsarReposytoryListener {
     try {
       await isarProvider.deleteTraining(training);
       await _getTrainings();
-      emit(TrainingsState.loaded(_trainings));
+      if (_trainings.isNotEmpty) {
+        emit(TrainingsState.loaded(_trainings));
+      } else {
+        emit(const TrainingsState.emptyList());
+      }
     } catch (e) {
       emit(TrainingsState.error(e.toString()));
     }
