@@ -1,66 +1,54 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:training_diary/application.dart';
+import 'package:training_diary/generated/codegen_loader.g.dart';
+import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart';
+import 'package:training_diary/src/cubit/trainings_cubit/trainings_cubit.dart';
+import 'package:training_diary/src/data_sources/provider/isar_provider.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'core/di/injection.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  configureDependencies();
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('ru'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('ru'),
+      assetLoader: const CodegenLoader(),
+      child: MultiBlocProvider(
+        providers: _blockProviders(),
+        child: MultiProvider(
+          providers: _providers(),
+          child: const TrainingDiaryApp(),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
+    ),
+  );
+}
+
+List<Provider> _providers() {
+  return [
+    Provider<IsarProvider>(
+      create: (context) => getIt<IsarProvider>(),
+    ),
+  ];
+}
+
+List<BlocProvider> _blockProviders() {
+  return [
+    BlocProvider<ExercisesCubit>(
+      create: (context) => getIt<ExercisesCubit>(),
+    ),
+    BlocProvider<TrainingsCubit>(
+      create: (context) => getIt<TrainingsCubit>(),
+    ),
+  ];
 }
