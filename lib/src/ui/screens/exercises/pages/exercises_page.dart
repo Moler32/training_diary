@@ -97,7 +97,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
               return EmptyListAddButton(
                 title: 'Добавить упражнение',
                 onPressed: () {
-                  showAddingForm(
+                  _showAddingForm(
                       onFirstButtonTap: _clearTextField,
                       firstButtonText: 'Очистить',
                       onSecondButtonTap: () {
@@ -146,8 +146,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
   }
 
   Widget _buildExercisesList(List<Exercise> exercises, Training training) {
-    // List<Exercise>? exercises =
-    //     context.watch<IsarProvider>().trainings[widget.index].exercises;
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -169,7 +167,23 @@ class _ExercisesPageState extends State<ExercisesPage> {
                 _changeStatus(exercises[index], training);
               },
               onSwapLeft: () => _deleteExercise(training, exercises[index]),
-              onSwapRight: () => _editExercise(),
+              onSwapRight: () {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _titleController.text = exercises[index].title ?? '';
+                  _setsController.text = exercises[index].sets ?? '';
+                  _repsController.text = exercises[index].reps ?? '';
+                  _weightController.text = exercises[index].weight ?? '';
+                  _timeController.text = exercises[index].time ?? '';
+                  _descriptionController.text =
+                      exercises[index].description ?? '';
+                  _showAddingForm(
+                    firstButtonText: 'Очистить',
+                    secondButtonText: 'Изменить',
+                    onFirstButtonTap: _clearTextField,
+                    onSecondButtonTap: () => _editExercise(training, index),
+                  );
+                });
+              },
             );
           },
         ),
@@ -181,7 +195,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
     return BlocConsumer<ExercisesCubit, ExercisesState>(
       bloc: _exercisesCubit,
       listener: (context, state) {},
-      // buildWhen: (previous, current) => previous != current,
       buildWhen: (prev, curr) {
         return curr is StartWorkout || curr is StopWorkout;
       },
@@ -210,7 +223,7 @@ class _ExercisesPageState extends State<ExercisesPage> {
     );
   }
 
-  void showAddingForm({
+  void _showAddingForm({
     required Function() onSecondButtonTap,
     String? firstButtonText,
     String? secondButtonText,
@@ -253,7 +266,17 @@ class _ExercisesPageState extends State<ExercisesPage> {
     _exercisesCubit.changeCopleteStatus(exercise, widget.index, training);
   }
 
-  void _editExercise() {}
+  void _editExercise(Training training, int exersiceIndex) {
+    MainRouter().pop();
+    final exersise = training.exercises[exersiceIndex];
+    exersise.title = _titleController.text;
+    exersise.reps = _repsController.text;
+    exersise.sets = _setsController.text;
+    exersise.time = _timeController.text;
+    exersise.weight = _weightController.text;
+    exersise.description = _descriptionController.text;
+    _exercisesCubit.editExersice(training, widget.index);
+  }
 
   void _deleteExercise(Training training, Exercise exercise) {
     _exercisesCubit.deleteExercise(training, exercise, widget.index);

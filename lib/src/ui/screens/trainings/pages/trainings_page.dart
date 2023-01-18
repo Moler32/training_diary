@@ -77,7 +77,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
           }, emptyList: () {
             return EmptyListAddButton(
               title: 'Добавить тренировку',
-              onPressed: () => showAddingForm(
+              onPressed: () => _showAddingForm(
                 firstButtonText: 'Очистить',
                 secondButtonText: 'Добавить',
                 onFirstButtonTap: _clearTextField,
@@ -95,7 +95,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showAddingForm(
+        onPressed: () => _showAddingForm(
           firstButtonText: 'Очистить',
           secondButtonText: 'Добавить',
           onFirstButtonTap: _clearTextField,
@@ -122,11 +122,11 @@ class _TrainingsPageState extends State<TrainingsPage> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               _titleController.text = trainings[index].title ?? '';
               _weekDayController.text = trainings[index].weekDay ?? '';
-              showAddingForm(
+              _showAddingForm(
                 firstButtonText: 'Очистить',
                 secondButtonText: 'Изменить',
                 onFirstButtonTap: _clearTextField,
-                onSecondButtonTap: () => _renameTraining(trainings[index]),
+                onSecondButtonTap: () => _editTraining(trainings[index]),
               );
             });
           },
@@ -136,7 +136,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
     );
   }
 
-  void showAddingForm({
+  void _showAddingForm({
     required Function() onSecondButtonTap,
     String? firstButtonText,
     String? secondButtonText,
@@ -166,12 +166,11 @@ class _TrainingsPageState extends State<TrainingsPage> {
     _clearTextField();
   }
 
-  void _renameTraining(Training training) {
+  void _editTraining(Training training) {
     MainRouter().pop();
-    final updateTraining = training;
-    updateTraining.title = _titleController.text;
-    updateTraining.weekDay = _weekDayController.text;
-    _trainingsCubit.renameTraining(updateTraining);
+    training.title = _titleController.text;
+    training.weekDay = _weekDayController.text;
+    _trainingsCubit.renameTraining(training);
     _titleController.clear();
     _weekDayController.clear();
   }

@@ -21,7 +21,7 @@ class TrainingsRepositoryImpl extends TrainingsRepository {
 
   @override
   void renameTraining(Training training) {
-    isarProvider.renameTraining(training);
+    isarProvider.editTraining(training);
   }
 
   @override

@@ -49,7 +49,13 @@ class IsarProvider {
     _trainings.add(training);
   }
 
-  Future<void> renameTraining(Training training) async {
+  Future<void> editTraining(Training training) async {
+    await isar!.writeTxn(() async {
+      isar!.trainings.put(training);
+    });
+  }
+
+  Future<void> editExercise(Training training) async {
     await isar!.writeTxn(() async {
       isar!.trainings.put(training);
     });

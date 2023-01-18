@@ -93,7 +93,16 @@ class ExercisesCubit extends Cubit<ExercisesState> {
       training.exercises = list;
       await isarProvider.deleteExercise(training);
       await _getExercises(trainingIndex);
-      emit(const ExercisesState.loading());
+      emit(ExercisesState.loadedList(_exercises));
+    } catch (e) {
+      emit(ExercisesState.error(e.toString()));
+    }
+  }
+
+  Future<void> editExersice(Training training, int trainingIndex) async {
+    try {
+      await isarProvider.editExercise(training);
+      await _getExercises(trainingIndex);
       emit(ExercisesState.loadedList(_exercises));
     } catch (e) {
       emit(ExercisesState.error(e.toString()));

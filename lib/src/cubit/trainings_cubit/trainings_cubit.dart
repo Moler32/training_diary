@@ -74,7 +74,7 @@ class TrainingsCubit extends Cubit<TrainingsState> with IsarReposytoryListener {
 
   Future<void> renameTraining(Training training) async {
     try {
-      await isarProvider.renameTraining(training);
+      await isarProvider.editTraining(training);
       await _getTrainings();
       emit(TrainingsState.loaded(_trainings));
     } catch (e) {
