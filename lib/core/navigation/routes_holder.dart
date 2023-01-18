@@ -8,6 +8,6 @@ class RoutesHolder {
     //Home
     AutoRoute(page: TrainingsPage),
 
-    AutoRoute(page: ExersicesPage)
+    AutoRoute(page: ExercisesPage)
   ];
 }

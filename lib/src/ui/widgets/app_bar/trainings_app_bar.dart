@@ -31,8 +31,6 @@ class _TrainingsAppBarState extends State<TrainingsAppBar> {
   late TextEditingController _titleController;
   late TextEditingController _weekDayController;
 
-  List<Exercise>? exercises = [];
-
   @override
   void initState() {
     super.initState();
@@ -70,8 +68,7 @@ class _TrainingsAppBarState extends State<TrainingsAppBar> {
               secondButtonText: 'Добавить',
               onFirstButtonTap: _clearTextField,
               onSecondButtonTap: () => _addTraining(
-                Training(_titleController.text, _weekDayController.text, []),
-              ),
+                  Training(_titleController.text, _weekDayController.text, [])),
             ),
             icon: const Icon(Icons.add),
           ),

@@ -3,9 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:training_diary/src/data_sources/provider/isar_provider.dart';
 import 'package:training_diary/src/models/trainings/training_model.dart';
-
-import '../../data_sources/provider/isar_provider_listener.dart';
-
 part 'exercises_state.dart';
 part 'exercises_cubit.freezed.dart';
 
@@ -14,27 +11,36 @@ class ExercisesCubit extends Cubit<ExercisesState> {
   ExercisesCubit(this.isarProvider) : super(const ExercisesState.loading());
   final IsarProvider isarProvider;
 
-  List<Exercise> _exersises = [];
+  List<Exercise> _exercises = [];
 
-  Future<void> fetchExercises(int index) async {
+  Future<void> fetchExercises(int trainingIndex) async {
     try {
       emit(const ExercisesState.loading());
       await Future.delayed(const Duration(milliseconds: 400));
-      _exersises = isarProvider.fetchExercises(index);
-      if (_exersises.isEmpty) {
+      await _getExercises(trainingIndex);
+      if (_exercises.isEmpty) {
         emit(const ExercisesState.emtyList());
       } else {
-        emit(ExercisesState.loadedList(_exersises));
+        emit(ExercisesState.loadedList(_exercises));
+        emit(const ExercisesState.stopWorkout());
       }
     } catch (e) {
       emit(ExercisesState.error(e.toString()));
     }
   }
 
-  Future<void> addExercise(Exercise exercise, Training training) async {
+  Future<List<Exercise>> _getExercises(int trainingIndex) async {
+    _exercises = await isarProvider.fetchExercises(trainingIndex);
+    return _exercises;
+  }
+
+  Future<void> addExercise(
+      Exercise exercise, Training training, int trainingIndex) async {
     try {
       // emit(ExercisesState.addExercise());
-      isarProvider.addExercise(exercise, training);
+      await isarProvider.addExercise(exercise, training);
+      await _getExercises(trainingIndex);
+      emit(ExercisesState.loadedList(_exercises));
     } catch (e) {
       emit(ExercisesState.error(e.toString()));
     }
@@ -44,7 +50,7 @@ class ExercisesCubit extends Cubit<ExercisesState> {
     try {
       // emit(const ExercisesState.loading());
       await Future.delayed(const Duration(milliseconds: 500));
-      emit(ExercisesState.startWorkout());
+      emit(const ExercisesState.startWorkout());
     } catch (e) {
       emit(ExercisesState.error(e.toString()));
     }
@@ -55,6 +61,40 @@ class ExercisesCubit extends Cubit<ExercisesState> {
       // emit(const ExercisesState.loading());
       await Future.delayed(const Duration(milliseconds: 500));
       emit(ExercisesState.stopWorkout());
+    } catch (e) {
+      emit(ExercisesState.error(e.toString()));
+    }
+  }
+
+  Future<void> changeCopleteStatus(
+    Exercise exercise,
+    int trainingIndex,
+    Training training,
+  ) async {
+    try {
+      exercise.isComlete = !exercise.isComlete;
+      await isarProvider.changeCompleteStatus(training);
+      await _getExercises(trainingIndex);
+      emit(const ExercisesState.loading());
+      emit(ExercisesState.loadedList(_exercises));
+    } catch (e) {
+      emit(ExercisesState.error(e.toString()));
+    }
+  }
+
+  Future<void> deleteExercise(
+    Training training,
+    Exercise exercise,
+    int trainingIndex,
+  ) async {
+    try {
+      final list = training.exercises.toList();
+      list.remove(exercise);
+      training.exercises = list;
+      await isarProvider.deleteExercise(training);
+      await _getExercises(trainingIndex);
+      emit(const ExercisesState.loading());
+      emit(ExercisesState.loadedList(_exercises));
     } catch (e) {
       emit(ExercisesState.error(e.toString()));
     }

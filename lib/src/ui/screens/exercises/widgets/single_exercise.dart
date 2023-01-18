@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SingleExercise extends StatelessWidget {
   const SingleExercise(
@@ -9,25 +10,60 @@ class SingleExercise extends StatelessWidget {
       this.reps,
       this.weight,
       this.time,
-      this.description});
+      this.description,
+      this.isComplete = false,
+      this.onTapCheckbox,
+      this.onSwapLeft,
+      this.onSwapRight});
 
   final int index;
   final String? title;
   //подходы
-  final int? sets;
+  final String? sets;
   // повторения
-  final int? reps;
-  final int? weight;
+  final String? reps;
+  final String? weight;
   final String? time;
   final String? description;
+  final bool isComplete;
+  final Function()? onTapCheckbox;
+  final Function()? onSwapLeft;
+  final Function()? onSwapRight;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        trailing: const Icon(Icons.keyboard_arrow_right),
-        leading: const Icon(Icons.fitness_center),
-        tileColor: index % 2 == 0 ? Colors.amber : Colors.blue,
+    return Slidable(
+      // key: ValueKey(index),
+      startActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (_) {
+              onSwapRight?.call();
+            },
+            backgroundColor: Color(0xFF21B7CA),
+            foregroundColor: Colors.white,
+            icon: Icons.edit,
+            label: 'Редактировать',
+          ),
+        ],
+      ),
+      endActionPane: ActionPane(
+        motion: ScrollMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (_) {
+              onSwapLeft?.call();
+            },
+            backgroundColor: Color(0xFFFE4A49),
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+            label: 'Удалить',
+          ),
+        ],
+      ),
+
+      child: InkWell(
         onTap: () {
           showModalBottomSheet(
               backgroundColor: Colors.transparent,
@@ -63,9 +99,9 @@ class SingleExercise extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(sets.toString(),
+                            Text('Подходов: $sets',
                                 style: TextStyle(fontSize: 16)),
-                            Text(reps.toString(),
+                            Text('Повторений: $reps',
                                 style: TextStyle(fontSize: 16)),
                           ],
                         ),
@@ -75,18 +111,25 @@ class SingleExercise extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(weight.toString(),
+                            Text('Вес: $weight кг',
                                 style: TextStyle(fontSize: 16)),
-                            Text(time.toString(),
+                            Text('Время: $time мин',
                                 style: TextStyle(fontSize: 16)),
                           ],
                         ),
                         const SizedBox(
                           height: 30,
                         ),
-                        Text(description ?? '', style: TextStyle(fontSize: 16)),
-                        TextButton(
-                            onPressed: () {}, child: Text('Добавить описание'))
+                        Column(
+                          children: [
+                            Text('Описание:', style: TextStyle(fontSize: 16)),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text(description ?? '',
+                                style: TextStyle(fontSize: 16)),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -94,54 +137,27 @@ class SingleExercise extends StatelessWidget {
               },
               context: context);
         },
-        // height: 100,
-        // decoration: BoxDecoration(color: Colors.yellow[700]),
-        title: Text(title ?? ''),
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     SizedBox(
-        //       height: 5,
-        //     ),
-        //     Text(
-        //       'Станова тяга',
-        //       style: TextStyle(fontSize: 20),
-        //     ),
-        //     SizedBox(
-        //       height: 10,
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.symmetric(horizontal: 25),
-        //       child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           Row(
-        //             children: [
-        //               Icon(Icons.replay_circle_filled),
-        //               SizedBox(
-        //                 width: 5,
-        //               ),
-        //               Text('4', style: TextStyle(fontSize: 16)),
-        //             ],
-        //           ),
-        //           Row(
-        //             children: [
-        //               Icon(Icons.scale),
-        //               SizedBox(
-        //                 width: 5,
-        //               ),
-        //               Text('65 кг', style: TextStyle(fontSize: 16)),
-        //             ],
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     SizedBox(
-        //       height: 10,
-        //     ),
-        //     Text('Повторений: 8, 10, 12, 14', style: TextStyle(fontSize: 16)),
-        //   ],
-        // ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.fitness_center),
+              Text(
+                title ?? '',
+                style: TextStyle(fontSize: 20),
+              ),
+              Row(children: [
+                Checkbox(
+                    value: isComplete,
+                    onChanged: (value) {
+                      onTapCheckbox?.call();
+                    }),
+                // Icon(Icons.keyboard_arrow_right)
+              ]),
+            ],
+          ),
+        ),
       ),
     );
   }

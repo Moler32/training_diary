@@ -56,6 +56,8 @@ dependencies:
   injectable: ^2.1.0
   json_annotation: ^4.7.0
 
+  flutter_slidable: ^2.0.0
+
 
   
 

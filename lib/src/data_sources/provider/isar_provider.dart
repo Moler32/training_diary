@@ -29,8 +29,8 @@ class IsarProvider {
   // _trainings = await trainingsCollection.where().findAll();
   // }
 
-  List<Exercise> fetchExercises(int index) {
-    _exercises = trainings[index].exercises;
+  Future<List<Exercise>> fetchExercises(int trainingIndex) async {
+    _exercises = trainings[trainingIndex].exercises;
     return _exercises;
   }
 
@@ -62,11 +62,23 @@ class IsarProvider {
     _trainings.remove(training);
   }
 
-  void addExercise(Exercise exercise, Training training) async {
+  Future<void> addExercise(Exercise exercise, Training training) async {
     await isar!.writeTxn(() async {
       final list = training.exercises.toList();
       list.add(exercise);
       training.exercises = list;
+      isar!.trainings.put(training);
+    });
+  }
+
+  Future<void> changeCompleteStatus(Training training) async {
+    await isar!.writeTxn(() async {
+      isar!.trainings.put(training);
+    });
+  }
+
+  Future<void> deleteExercise(Training training) async {
+    await isar!.writeTxn(() async {
       isar!.trainings.put(training);
     });
   }

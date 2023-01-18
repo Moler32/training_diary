@@ -39,6 +39,8 @@ class _TrainingsPageState extends State<TrainingsPage> {
 
   @override
   void dispose() {
+    _titleController.dispose();
+    _weekDayController.dispose();
     _trainingsCubit.close();
     super.dispose();
   }
@@ -79,9 +81,8 @@ class _TrainingsPageState extends State<TrainingsPage> {
                 firstButtonText: 'Очистить',
                 secondButtonText: 'Добавить',
                 onFirstButtonTap: _clearTextField,
-                onSecondButtonTap: () => _addTraining(
-                  Training(_titleController.text, _weekDayController.text, []),
-                ),
+                onSecondButtonTap: () => _addTraining(Training(
+                    _titleController.text, _weekDayController.text, [])),
               ),
             );
           }, error: (message) {
@@ -99,8 +100,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
           secondButtonText: 'Добавить',
           onFirstButtonTap: _clearTextField,
           onSecondButtonTap: () => _addTraining(
-            Training(_titleController.text, _weekDayController.text, []),
-          ),
+              Training(_titleController.text, _weekDayController.text, [])),
         ),
       ),
     );
@@ -163,8 +163,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
     if (_titleController.text.isNotEmpty) {
       _trainingsCubit.addTraining(training);
     }
-    _titleController.clear();
-    _weekDayController.clear();
+    _clearTextField();
   }
 
   void _renameTraining(Training training) {

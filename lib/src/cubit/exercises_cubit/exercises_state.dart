@@ -7,8 +7,6 @@ class ExercisesState with _$ExercisesState {
   const factory ExercisesState.stopWorkout() = StopWorkout;
   const factory ExercisesState.error(String message) = Error;
   const factory ExercisesState.emtyList() = EmptyList;
-  const factory ExercisesState.loadedList(List<Exercise> exersises) =
+  const factory ExercisesState.loadedList(List<Exercise> exercises) =
       LoadedList;
-  const factory ExercisesState.addExercise() = AddExercise;
-  const factory ExercisesState.editExercise() = EditExercise;
 }

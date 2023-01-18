@@ -19,14 +19,16 @@ class Exercise {
       this.reps,
       this.weight,
       this.time,
-      this.description});
+      this.description,
+      this.isComlete = false});
 
   String? title;
   //подходы
-  int? sets;
+  String? sets;
   // повторения
-  int? reps;
-  int? weight;
+  String? reps;
+  String? weight;
   String? time;
   String? description;
+  bool isComlete;
 }

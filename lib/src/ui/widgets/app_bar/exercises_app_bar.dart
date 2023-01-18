@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:training_diary/core/navigation/main_router.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
-
-import '../../../cubit/exercises_cubit/exercises_cubit.dart';
+import '../../../data_sources/provider/isar_provider.dart';
 import '../../../models/trainings/training_model.dart';
+import '../adding_form/add_exercise_form.dart';
 
 class ExercisesAppBar extends StatefulWidget implements PreferredSizeWidget {
   ExercisesAppBar(
@@ -31,74 +31,68 @@ class ExercisesAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _ExercisesAppBarState extends State<ExercisesAppBar> {
   late final exercises_cubit.ExercisesCubit _exercisesCubit;
 
-  late TextEditingController _controller;
-  String? title;
-  int? sets = 2;
-  int? reps = 4;
-  int? weight = 70;
-  String? time = '3 mib';
-  String? description = 'Description';
+  late TextEditingController _titleController;
+  late TextEditingController _setsController;
+  late TextEditingController _repsController;
+  late TextEditingController _timeController;
+  late TextEditingController _weightController;
+  late TextEditingController _descriptionController;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _titleController = TextEditingController();
+    _setsController = TextEditingController();
+    _repsController = TextEditingController();
+    _timeController = TextEditingController();
+    _weightController = TextEditingController();
+    _descriptionController = TextEditingController();
     _exercisesCubit = context.read<exercises_cubit.ExercisesCubit>();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _titleController.dispose();
+    _setsController.dispose();
+    _repsController.dispose();
+    _timeController.dispose();
+    _weightController.dispose();
+    _descriptionController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    Training training =
+        context.watch<IsarProvider>().trainings.elementAt(widget.index);
     return AppBar(
       centerTitle: true,
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: BlocConsumer<ExercisesCubit, ExercisesState>(
-            bloc: _exercisesCubit,
-            listener: (context, state) {},
-            builder: (context, state) {
-              return state.maybeWhen(addExercise: () {
-                return IconButton(
-                  splashRadius: 30,
-                  onPressed: () {
-                    openDialog();
-                    // _exercisesCubit.addExercise(
-                    //     Exercise(
-                    //         title: _controller.text,
-                    //         weight: weight,
-                    //         time: time,
-                    //         sets: sets,
-                    //         reps: reps,
-                    //         description: description),
-                    //     widget.training!);
+          child: IconButton(
+            splashRadius: 30,
+            onPressed: () {
+              showAddingForm(
+                  onFirstButtonTap: _clearTextField,
+                  firstButtonText: 'Очистить',
+                  onSecondButtonTap: () {
+                    _addExercise(
+                        Exercise(
+                          title: _titleController.text,
+                          sets: _setsController.text,
+                          reps: _repsController.text,
+                          weight: _weightController.text,
+                          time: _timeController.text,
+                          description: _descriptionController.text,
+                          isComlete: false,
+                        ),
+                        training,
+                        widget.index);
                   },
-                  icon: const Icon(Icons.add),
-                );
-              }, orElse: () {
-                return IconButton(
-                  splashRadius: 30,
-                  onPressed: () {
-                    openDialog();
-                    // _exercisesCubit.addExercise(
-                    //     Exercise(
-                    //         title: _controller.text,
-                    //         weight: weight,
-                    //         time: time,
-                    //         sets: sets,
-                    //         reps: reps,
-                    //         description: description),
-                    //     widget.training!);
-                  },
-                  icon: const Icon(Icons.add),
-                );
-              });
+                  secondButtonText: 'Добавить');
             },
+            icon: const Icon(Icons.add),
           ),
         ),
       ],
@@ -106,48 +100,42 @@ class _ExercisesAppBarState extends State<ExercisesAppBar> {
     );
   }
 
-  Future<String?> openDialog() => showDialog<String>(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Введите название eупражнения(например "Становая тяга")'),
-          content: TextField(
-            autofocus: true,
-            decoration: InputDecoration(hintText: 'Введите название'),
-            controller: _controller,
-            onSubmitted: (_) => _addExercise(
-                Exercise(
-                  title: _controller.text,
-                  weight: weight,
-                  time: time,
-                  sets: sets,
-                  reps: reps,
-                  description: description,
-                ),
-                widget.training!),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => _addExercise(
-                Exercise(
-                    title: _controller.text,
-                    weight: weight,
-                    time: time,
-                    sets: sets,
-                    reps: reps,
-                    description: description),
-                widget.training!,
-              ),
-              child: Text('Добавить'),
-            ),
-          ],
-        ),
-      );
+  void showAddingForm({
+    required Function() onSecondButtonTap,
+    String? firstButtonText,
+    String? secondButtonText,
+    Function()? onFirstButtonTap,
+  }) {
+    AddExerciseForm(
+      context: context,
+      descriptionController: _descriptionController,
+      repsController: _repsController,
+      setsController: _setsController,
+      timeController: _timeController,
+      title: 'Введите название упражнения',
+      titleController: _titleController,
+      weightController: _weightController,
+      firstButtonText: firstButtonText,
+      onFirstButtonTap: onFirstButtonTap,
+      secondButtonText: secondButtonText ?? '',
+      onSecondButtonTap: onSecondButtonTap,
+    ).openDialog();
+  }
 
-  void _addExercise(Exercise exercise, Training training) {
-    MainRouter().pop(_controller.text);
-    // context.read<IsarProvider>().addExercise(exercise, training);
-    _exercisesCubit.addExercise(exercise, training);
+  void _clearTextField() {
+    _titleController.clear();
+    _weightController.clear();
+    _timeController.clear();
+    _setsController.clear();
+    _repsController.clear();
+    _descriptionController.clear();
+  }
 
-    _controller.clear();
+  void _addExercise(Exercise exercise, Training training, int index) {
+    MainRouter().pop();
+    if (_titleController.text.isNotEmpty) {
+      _exercisesCubit.addExercise(exercise, training, index);
+    }
+    _clearTextField();
   }
 }

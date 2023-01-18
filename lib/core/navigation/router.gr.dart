@@ -31,11 +31,11 @@ class AppRouter extends _i3.RootStackRouter {
         child: const _i1.TrainingsPage(),
       );
     },
-    ExersicesRoute.name: (routeData) {
-      final args = routeData.argsAs<ExersicesRouteArgs>();
+    ExercisesRoute.name: (routeData) {
+      final args = routeData.argsAs<ExercisesRouteArgs>();
       return _i3.AdaptivePage<dynamic>(
         routeData: routeData,
-        child: _i2.ExersicesPage(
+        child: _i2.ExercisesPage(
           key: args.key,
           title: args.title,
           index: args.index,
@@ -51,8 +51,8 @@ class AppRouter extends _i3.RootStackRouter {
           path: '/trainings-page',
         ),
         _i3.RouteConfig(
-          ExersicesRoute.name,
-          path: '/exersices-page',
+          ExercisesRoute.name,
+          path: '/exercises-page',
         ),
       ];
 }
@@ -70,27 +70,27 @@ class TrainingsRoute extends _i3.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.ExersicesPage]
-class ExersicesRoute extends _i3.PageRouteInfo<ExersicesRouteArgs> {
-  ExersicesRoute({
+/// [_i2.ExercisesPage]
+class ExercisesRoute extends _i3.PageRouteInfo<ExercisesRouteArgs> {
+  ExercisesRoute({
     _i5.Key? key,
     String? title,
     required int index,
   }) : super(
-          ExersicesRoute.name,
-          path: '/exersices-page',
-          args: ExersicesRouteArgs(
+          ExercisesRoute.name,
+          path: '/exercises-page',
+          args: ExercisesRouteArgs(
             key: key,
             title: title,
             index: index,
           ),
         );
 
-  static const String name = 'ExersicesRoute';
+  static const String name = 'ExercisesRoute';
 }
 
-class ExersicesRouteArgs {
-  const ExersicesRouteArgs({
+class ExercisesRouteArgs {
+  const ExercisesRouteArgs({
     this.key,
     this.title,
     required this.index,
@@ -104,6 +104,6 @@ class ExersicesRouteArgs {
 
   @override
   String toString() {
-    return 'ExersicesRouteArgs{key: $key, title: $title, index: $index}';
+    return 'ExercisesRouteArgs{key: $key, title: $title, index: $index}';
   }
 }

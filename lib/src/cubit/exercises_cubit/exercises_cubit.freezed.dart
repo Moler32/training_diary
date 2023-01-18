@@ -23,9 +23,7 @@ mixin _$ExercisesState {
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
     required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
+    required TResult Function(List<Exercise> exercises) loadedList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,9 +33,7 @@ mixin _$ExercisesState {
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
     TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
+    TResult? Function(List<Exercise> exercises)? loadedList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +43,7 @@ mixin _$ExercisesState {
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
     TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
+    TResult Function(List<Exercise> exercises)? loadedList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,8 +55,6 @@ mixin _$ExercisesState {
     required TResult Function(Error value) error,
     required TResult Function(EmptyList value) emtyList,
     required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,8 +65,6 @@ mixin _$ExercisesState {
     TResult? Function(Error value)? error,
     TResult? Function(EmptyList value)? emtyList,
     TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -85,8 +75,6 @@ mixin _$ExercisesState {
     TResult Function(Error value)? error,
     TResult Function(EmptyList value)? emtyList,
     TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -151,9 +139,7 @@ class _$Loading implements Loading {
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
     required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
+    required TResult Function(List<Exercise> exercises) loadedList,
   }) {
     return loading();
   }
@@ -166,9 +152,7 @@ class _$Loading implements Loading {
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
     TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
+    TResult? Function(List<Exercise> exercises)? loadedList,
   }) {
     return loading?.call();
   }
@@ -181,9 +165,7 @@ class _$Loading implements Loading {
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
     TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
+    TResult Function(List<Exercise> exercises)? loadedList,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -201,8 +183,6 @@ class _$Loading implements Loading {
     required TResult Function(Error value) error,
     required TResult Function(EmptyList value) emtyList,
     required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
   }) {
     return loading(this);
   }
@@ -216,8 +196,6 @@ class _$Loading implements Loading {
     TResult? Function(Error value)? error,
     TResult? Function(EmptyList value)? emtyList,
     TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
   }) {
     return loading?.call(this);
   }
@@ -231,8 +209,6 @@ class _$Loading implements Loading {
     TResult Function(Error value)? error,
     TResult Function(EmptyList value)? emtyList,
     TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -289,9 +265,7 @@ class _$StartWorkout implements StartWorkout {
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
     required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
+    required TResult Function(List<Exercise> exercises) loadedList,
   }) {
     return startWorkout();
   }
@@ -304,9 +278,7 @@ class _$StartWorkout implements StartWorkout {
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
     TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
+    TResult? Function(List<Exercise> exercises)? loadedList,
   }) {
     return startWorkout?.call();
   }
@@ -319,9 +291,7 @@ class _$StartWorkout implements StartWorkout {
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
     TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
+    TResult Function(List<Exercise> exercises)? loadedList,
     required TResult orElse(),
   }) {
     if (startWorkout != null) {
@@ -339,8 +309,6 @@ class _$StartWorkout implements StartWorkout {
     required TResult Function(Error value) error,
     required TResult Function(EmptyList value) emtyList,
     required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
   }) {
     return startWorkout(this);
   }
@@ -354,8 +322,6 @@ class _$StartWorkout implements StartWorkout {
     TResult? Function(Error value)? error,
     TResult? Function(EmptyList value)? emtyList,
     TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
   }) {
     return startWorkout?.call(this);
   }
@@ -369,8 +335,6 @@ class _$StartWorkout implements StartWorkout {
     TResult Function(Error value)? error,
     TResult Function(EmptyList value)? emtyList,
     TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
     required TResult orElse(),
   }) {
     if (startWorkout != null) {
@@ -427,9 +391,7 @@ class _$StopWorkout implements StopWorkout {
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
     required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
+    required TResult Function(List<Exercise> exercises) loadedList,
   }) {
     return stopWorkout();
   }
@@ -442,9 +404,7 @@ class _$StopWorkout implements StopWorkout {
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
     TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
+    TResult? Function(List<Exercise> exercises)? loadedList,
   }) {
     return stopWorkout?.call();
   }
@@ -457,9 +417,7 @@ class _$StopWorkout implements StopWorkout {
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
     TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
+    TResult Function(List<Exercise> exercises)? loadedList,
     required TResult orElse(),
   }) {
     if (stopWorkout != null) {
@@ -477,8 +435,6 @@ class _$StopWorkout implements StopWorkout {
     required TResult Function(Error value) error,
     required TResult Function(EmptyList value) emtyList,
     required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
   }) {
     return stopWorkout(this);
   }
@@ -492,8 +448,6 @@ class _$StopWorkout implements StopWorkout {
     TResult? Function(Error value)? error,
     TResult? Function(EmptyList value)? emtyList,
     TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
   }) {
     return stopWorkout?.call(this);
   }
@@ -507,8 +461,6 @@ class _$StopWorkout implements StopWorkout {
     TResult Function(Error value)? error,
     TResult Function(EmptyList value)? emtyList,
     TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
     required TResult orElse(),
   }) {
     if (stopWorkout != null) {
@@ -589,9 +541,7 @@ class _$Error implements Error {
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
     required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
+    required TResult Function(List<Exercise> exercises) loadedList,
   }) {
     return error(message);
   }
@@ -604,9 +554,7 @@ class _$Error implements Error {
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
     TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
+    TResult? Function(List<Exercise> exercises)? loadedList,
   }) {
     return error?.call(message);
   }
@@ -619,9 +567,7 @@ class _$Error implements Error {
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
     TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
+    TResult Function(List<Exercise> exercises)? loadedList,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -639,8 +585,6 @@ class _$Error implements Error {
     required TResult Function(Error value) error,
     required TResult Function(EmptyList value) emtyList,
     required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
   }) {
     return error(this);
   }
@@ -654,8 +598,6 @@ class _$Error implements Error {
     TResult? Function(Error value)? error,
     TResult? Function(EmptyList value)? emtyList,
     TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
   }) {
     return error?.call(this);
   }
@@ -669,8 +611,6 @@ class _$Error implements Error {
     TResult Function(Error value)? error,
     TResult Function(EmptyList value)? emtyList,
     TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -731,9 +671,7 @@ class _$EmptyList implements EmptyList {
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
     required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
+    required TResult Function(List<Exercise> exercises) loadedList,
   }) {
     return emtyList();
   }
@@ -746,9 +684,7 @@ class _$EmptyList implements EmptyList {
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
     TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
+    TResult? Function(List<Exercise> exercises)? loadedList,
   }) {
     return emtyList?.call();
   }
@@ -761,9 +697,7 @@ class _$EmptyList implements EmptyList {
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
     TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
+    TResult Function(List<Exercise> exercises)? loadedList,
     required TResult orElse(),
   }) {
     if (emtyList != null) {
@@ -781,8 +715,6 @@ class _$EmptyList implements EmptyList {
     required TResult Function(Error value) error,
     required TResult Function(EmptyList value) emtyList,
     required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
   }) {
     return emtyList(this);
   }
@@ -796,8 +728,6 @@ class _$EmptyList implements EmptyList {
     TResult? Function(Error value)? error,
     TResult? Function(EmptyList value)? emtyList,
     TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
   }) {
     return emtyList?.call(this);
   }
@@ -811,8 +741,6 @@ class _$EmptyList implements EmptyList {
     TResult Function(Error value)? error,
     TResult Function(EmptyList value)? emtyList,
     TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
     required TResult orElse(),
   }) {
     if (emtyList != null) {
@@ -832,7 +760,7 @@ abstract class _$$LoadedListCopyWith<$Res> {
           _$LoadedList value, $Res Function(_$LoadedList) then) =
       __$$LoadedListCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Exercise> exersises});
+  $Res call({List<Exercise> exercises});
 }
 
 /// @nodoc
@@ -846,12 +774,12 @@ class __$$LoadedListCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? exersises = null,
+    Object? exercises = null,
   }) {
     return _then(_$LoadedList(
-      null == exersises
-          ? _value._exersises
-          : exersises // ignore: cast_nullable_to_non_nullable
+      null == exercises
+          ? _value._exercises
+          : exercises // ignore: cast_nullable_to_non_nullable
               as List<Exercise>,
     ));
   }
@@ -860,19 +788,19 @@ class __$$LoadedListCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedList implements LoadedList {
-  const _$LoadedList(final List<Exercise> exersises) : _exersises = exersises;
+  const _$LoadedList(final List<Exercise> exercises) : _exercises = exercises;
 
-  final List<Exercise> _exersises;
+  final List<Exercise> _exercises;
   @override
-  List<Exercise> get exersises {
-    if (_exersises is EqualUnmodifiableListView) return _exersises;
+  List<Exercise> get exercises {
+    if (_exercises is EqualUnmodifiableListView) return _exercises;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_exersises);
+    return EqualUnmodifiableListView(_exercises);
   }
 
   @override
   String toString() {
-    return 'ExercisesState.loadedList(exersises: $exersises)';
+    return 'ExercisesState.loadedList(exercises: $exercises)';
   }
 
   @override
@@ -881,12 +809,12 @@ class _$LoadedList implements LoadedList {
         (other.runtimeType == runtimeType &&
             other is _$LoadedList &&
             const DeepCollectionEquality()
-                .equals(other._exersises, _exersises));
+                .equals(other._exercises, _exercises));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_exersises));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_exercises));
 
   @JsonKey(ignore: true)
   @override
@@ -902,11 +830,9 @@ class _$LoadedList implements LoadedList {
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
     required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
+    required TResult Function(List<Exercise> exercises) loadedList,
   }) {
-    return loadedList(exersises);
+    return loadedList(exercises);
   }
 
   @override
@@ -917,11 +843,9 @@ class _$LoadedList implements LoadedList {
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
     TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
+    TResult? Function(List<Exercise> exercises)? loadedList,
   }) {
-    return loadedList?.call(exersises);
+    return loadedList?.call(exercises);
   }
 
   @override
@@ -932,13 +856,11 @@ class _$LoadedList implements LoadedList {
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
     TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
+    TResult Function(List<Exercise> exercises)? loadedList,
     required TResult orElse(),
   }) {
     if (loadedList != null) {
-      return loadedList(exersises);
+      return loadedList(exercises);
     }
     return orElse();
   }
@@ -952,8 +874,6 @@ class _$LoadedList implements LoadedList {
     required TResult Function(Error value) error,
     required TResult Function(EmptyList value) emtyList,
     required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
   }) {
     return loadedList(this);
   }
@@ -967,8 +887,6 @@ class _$LoadedList implements LoadedList {
     TResult? Function(Error value)? error,
     TResult? Function(EmptyList value)? emtyList,
     TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
   }) {
     return loadedList?.call(this);
   }
@@ -982,8 +900,6 @@ class _$LoadedList implements LoadedList {
     TResult Function(Error value)? error,
     TResult Function(EmptyList value)? emtyList,
     TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
     required TResult orElse(),
   }) {
     if (loadedList != null) {
@@ -994,286 +910,10 @@ class _$LoadedList implements LoadedList {
 }
 
 abstract class LoadedList implements ExercisesState {
-  const factory LoadedList(final List<Exercise> exersises) = _$LoadedList;
+  const factory LoadedList(final List<Exercise> exercises) = _$LoadedList;
 
-  List<Exercise> get exersises;
+  List<Exercise> get exercises;
   @JsonKey(ignore: true)
   _$$LoadedListCopyWith<_$LoadedList> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AddExerciseCopyWith<$Res> {
-  factory _$$AddExerciseCopyWith(
-          _$AddExercise value, $Res Function(_$AddExercise) then) =
-      __$$AddExerciseCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AddExerciseCopyWithImpl<$Res>
-    extends _$ExercisesStateCopyWithImpl<$Res, _$AddExercise>
-    implements _$$AddExerciseCopyWith<$Res> {
-  __$$AddExerciseCopyWithImpl(
-      _$AddExercise _value, $Res Function(_$AddExercise) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$AddExercise implements AddExercise {
-  const _$AddExercise();
-
-  @override
-  String toString() {
-    return 'ExercisesState.addExercise()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AddExercise);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loading,
-    required TResult Function() startWorkout,
-    required TResult Function() stopWorkout,
-    required TResult Function(String message) error,
-    required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
-  }) {
-    return addExercise();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loading,
-    TResult? Function()? startWorkout,
-    TResult? Function()? stopWorkout,
-    TResult? Function(String message)? error,
-    TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
-  }) {
-    return addExercise?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function()? startWorkout,
-    TResult Function()? stopWorkout,
-    TResult Function(String message)? error,
-    TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
-    required TResult orElse(),
-  }) {
-    if (addExercise != null) {
-      return addExercise();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Loading value) loading,
-    required TResult Function(StartWorkout value) startWorkout,
-    required TResult Function(StopWorkout value) stopWorkout,
-    required TResult Function(Error value) error,
-    required TResult Function(EmptyList value) emtyList,
-    required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
-  }) {
-    return addExercise(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Loading value)? loading,
-    TResult? Function(StartWorkout value)? startWorkout,
-    TResult? Function(StopWorkout value)? stopWorkout,
-    TResult? Function(Error value)? error,
-    TResult? Function(EmptyList value)? emtyList,
-    TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
-  }) {
-    return addExercise?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Loading value)? loading,
-    TResult Function(StartWorkout value)? startWorkout,
-    TResult Function(StopWorkout value)? stopWorkout,
-    TResult Function(Error value)? error,
-    TResult Function(EmptyList value)? emtyList,
-    TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
-    required TResult orElse(),
-  }) {
-    if (addExercise != null) {
-      return addExercise(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddExercise implements ExercisesState {
-  const factory AddExercise() = _$AddExercise;
-}
-
-/// @nodoc
-abstract class _$$EditExerciseCopyWith<$Res> {
-  factory _$$EditExerciseCopyWith(
-          _$EditExercise value, $Res Function(_$EditExercise) then) =
-      __$$EditExerciseCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$EditExerciseCopyWithImpl<$Res>
-    extends _$ExercisesStateCopyWithImpl<$Res, _$EditExercise>
-    implements _$$EditExerciseCopyWith<$Res> {
-  __$$EditExerciseCopyWithImpl(
-      _$EditExercise _value, $Res Function(_$EditExercise) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$EditExercise implements EditExercise {
-  const _$EditExercise();
-
-  @override
-  String toString() {
-    return 'ExercisesState.editExercise()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$EditExercise);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loading,
-    required TResult Function() startWorkout,
-    required TResult Function() stopWorkout,
-    required TResult Function(String message) error,
-    required TResult Function() emtyList,
-    required TResult Function(List<Exercise> exersises) loadedList,
-    required TResult Function() addExercise,
-    required TResult Function() editExercise,
-  }) {
-    return editExercise();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loading,
-    TResult? Function()? startWorkout,
-    TResult? Function()? stopWorkout,
-    TResult? Function(String message)? error,
-    TResult? Function()? emtyList,
-    TResult? Function(List<Exercise> exersises)? loadedList,
-    TResult? Function()? addExercise,
-    TResult? Function()? editExercise,
-  }) {
-    return editExercise?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function()? startWorkout,
-    TResult Function()? stopWorkout,
-    TResult Function(String message)? error,
-    TResult Function()? emtyList,
-    TResult Function(List<Exercise> exersises)? loadedList,
-    TResult Function()? addExercise,
-    TResult Function()? editExercise,
-    required TResult orElse(),
-  }) {
-    if (editExercise != null) {
-      return editExercise();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Loading value) loading,
-    required TResult Function(StartWorkout value) startWorkout,
-    required TResult Function(StopWorkout value) stopWorkout,
-    required TResult Function(Error value) error,
-    required TResult Function(EmptyList value) emtyList,
-    required TResult Function(LoadedList value) loadedList,
-    required TResult Function(AddExercise value) addExercise,
-    required TResult Function(EditExercise value) editExercise,
-  }) {
-    return editExercise(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Loading value)? loading,
-    TResult? Function(StartWorkout value)? startWorkout,
-    TResult? Function(StopWorkout value)? stopWorkout,
-    TResult? Function(Error value)? error,
-    TResult? Function(EmptyList value)? emtyList,
-    TResult? Function(LoadedList value)? loadedList,
-    TResult? Function(AddExercise value)? addExercise,
-    TResult? Function(EditExercise value)? editExercise,
-  }) {
-    return editExercise?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Loading value)? loading,
-    TResult Function(StartWorkout value)? startWorkout,
-    TResult Function(StopWorkout value)? stopWorkout,
-    TResult Function(Error value)? error,
-    TResult Function(EmptyList value)? emtyList,
-    TResult Function(LoadedList value)? loadedList,
-    TResult Function(AddExercise value)? addExercise,
-    TResult Function(EditExercise value)? editExercise,
-    required TResult orElse(),
-  }) {
-    if (editExercise != null) {
-      return editExercise(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class EditExercise implements ExercisesState {
-  const factory EditExercise() = _$EditExercise;
 }

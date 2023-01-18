@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../../core/navigation/router.gr.dart';
+import '../../../../cubit/trainings_cubit/trainings_cubit.dart'
+    as trainings_cubit;
 import '../../../../models/trainings/training_model.dart';
 
 class SingleTraining extends StatefulWidget {
@@ -28,6 +31,13 @@ class SingleTraining extends StatefulWidget {
 }
 
 class _SingleTrainingState extends State<SingleTraining> {
+  late final trainings_cubit.TrainingsCubit _trainingsCubit;
+  @override
+  void initState() {
+    super.initState();
+    _trainingsCubit = context.read<trainings_cubit.TrainingsCubit>();
+  }
+
   @override
   Widget build(BuildContext context) {
     final titleController = TextEditingController(text: widget.title);
@@ -58,8 +68,10 @@ class _SingleTrainingState extends State<SingleTraining> {
           child: InkWell(
             borderRadius: BorderRadius.circular(10),
             onTap: () {
-              MainRouter().push(
-                  ExersicesRoute(title: widget.title, index: widget.index));
+              MainRouter()
+                  .push(
+                      ExercisesRoute(title: widget.title, index: widget.index))
+                  .then((value) => _trainingsCubit.fetchTrainings());
             },
             child: Padding(
               padding: const EdgeInsets.all(15.0),

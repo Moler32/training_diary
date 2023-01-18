@@ -17,9 +17,7 @@ Future<void> main() async {
   configureDependencies();
   runApp(
     EasyLocalization(
-      supportedLocales: const [
-        Locale('ru'),
-      ],
+      supportedLocales: const [Locale('ru')],
       path: 'assets/translations',
       fallbackLocale: const Locale('ru'),
       assetLoader: const CodegenLoader(),
