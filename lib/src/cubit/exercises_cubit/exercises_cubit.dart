@@ -37,7 +37,6 @@ class ExercisesCubit extends Cubit<ExercisesState> {
   Future<void> addExercise(
       Exercise exercise, Training training, int trainingIndex) async {
     try {
-      // emit(ExercisesState.addExercise());
       await isarProvider.addExercise(exercise, training);
       await _getExercises(trainingIndex);
       emit(ExercisesState.loadedList(_exercises));
@@ -48,8 +47,7 @@ class ExercisesCubit extends Cubit<ExercisesState> {
 
   Future<void> startWorkout(bool isPlaying) async {
     try {
-      // emit(const ExercisesState.loading());
-      await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 200));
       emit(const ExercisesState.startWorkout());
     } catch (e) {
       emit(ExercisesState.error(e.toString()));
@@ -58,9 +56,8 @@ class ExercisesCubit extends Cubit<ExercisesState> {
 
   Future<void> stopWorkout(bool isPlaying) async {
     try {
-      // emit(const ExercisesState.loading());
-      await Future.delayed(const Duration(milliseconds: 500));
-      emit(ExercisesState.stopWorkout());
+      await Future.delayed(const Duration(milliseconds: 200));
+      emit(const ExercisesState.stopWorkout());
     } catch (e) {
       emit(ExercisesState.error(e.toString()));
     }
@@ -103,6 +100,7 @@ class ExercisesCubit extends Cubit<ExercisesState> {
     try {
       await isarProvider.editExercise(training);
       await _getExercises(trainingIndex);
+      emit(const ExercisesState.loading());
       emit(ExercisesState.loadedList(_exercises));
     } catch (e) {
       emit(ExercisesState.error(e.toString()));

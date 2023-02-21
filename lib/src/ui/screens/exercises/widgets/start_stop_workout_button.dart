@@ -26,9 +26,10 @@ class StartStopWorkoutButton extends StatelessWidget {
         style: ButtonStyle(
           shape: MaterialStateProperty.all(const BeveledRectangleBorder()),
           backgroundColor: isStarting ?? false
-              ? const MaterialStatePropertyAll<Color>(Colors.red)
+              ? const MaterialStatePropertyAll<Color>(
+                  Color.fromARGB(255, 255, 178, 173))
               : const MaterialStatePropertyAll<Color>(
-                  Color.fromARGB(255, 0, 255, 8)),
+                  Color.fromARGB(255, 116, 179, 118)),
         ),
         onPressed: isStarting ?? false ? onStopTap : onStartTap,
         child: Row(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
-import '../../../../../core/di/injection.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../cubit/exercises_cubit/exercises_cubit.dart';
 import '../../../../data_sources/provider/isar_provider.dart';
@@ -26,6 +25,8 @@ class ExercisesPage extends StatefulWidget {
 
 class _ExercisesPageState extends State<ExercisesPage> {
   late final exercises_cubit.ExercisesCubit _exercisesCubit;
+
+  final stopwatch = Stopwatch();
 
   late TextEditingController _titleController;
   late TextEditingController _setsController;
@@ -76,15 +77,8 @@ class _ExercisesPageState extends State<ExercisesPage> {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(message)));
               },
-              // startWorkout: (isPlaying) {
-              //   _exercisesCubit.startWorkout(isPlaying);
-              // },
-              // stopWorkout: (isPlaying) {
-              //   _exercisesCubit.stopWorkout(isPlaying);
-              // },
               orElse: () {});
         },
-        // buildWhen: (previous, current) => previous != current,
         buildWhen: (prev, curr) {
           return curr is Error ||
               curr is LoadedList ||
@@ -217,7 +211,11 @@ class _ExercisesPageState extends State<ExercisesPage> {
   Widget _startStopWorkoutButton({bool? isStarting, Function()? onTap}) {
     return StartStopWorkoutButton(
       isStarting: isStarting,
-      onStartTap: () => _exercisesCubit.startWorkout(true),
+      onStartTap: () {
+        stopwatch.start();
+        print(stopwatch.elapsedMilliseconds);
+        _exercisesCubit.startWorkout(true);
+      },
       onStopTap: () => _exercisesCubit.stopWorkout(false),
       height: 60,
     );
