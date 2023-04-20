@@ -6,6 +6,7 @@ class LanguageMenuItem extends StatelessWidget {
       required this.image,
       required this.language,
       required this.title});
+
   final String image;
   final String title;
   final String language;

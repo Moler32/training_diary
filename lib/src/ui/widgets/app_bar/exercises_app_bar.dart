@@ -6,6 +6,7 @@ import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/core/navigation/main_router.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
+import 'package:training_diary/src/ui/widgets/mixins/show_exercise_adding_form.dart';
 import '../../../data_sources/isar_db/isar.dart';
 import '../../../models/trainings/training_model.dart';
 import '../adding_form/add_exercise_form.dart';
@@ -30,7 +31,8 @@ class ExercisesAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<ExercisesAppBar> createState() => _ExercisesAppBarState();
 }
 
-class _ExercisesAppBarState extends State<ExercisesAppBar> {
+class _ExercisesAppBarState extends State<ExercisesAppBar>
+    with ShowExerciseAddingForm {
   late final exercises_cubit.ExercisesCubit _exercisesCubit;
 
   late TextEditingController _titleController;
@@ -76,6 +78,13 @@ class _ExercisesAppBarState extends State<ExercisesAppBar> {
             splashRadius: 30,
             onPressed: () {
               showAddingForm(
+                  context: context,
+                  descriptionController: _descriptionController,
+                  setsController: _setsController,
+                  repsController: _repsController,
+                  timeController: _timeController,
+                  titleController: _titleController,
+                  weightController: _weightController,
                   onFirstButtonTap: _clearTextField,
                   firstButtonText: LocaleKeys.clear.tr(),
                   onSecondButtonTap: () {
@@ -100,28 +109,6 @@ class _ExercisesAppBarState extends State<ExercisesAppBar> {
       ],
       title: Text(widget.title ?? ''),
     );
-  }
-
-  void showAddingForm({
-    required Function() onSecondButtonTap,
-    String? firstButtonText,
-    String? secondButtonText,
-    Function()? onFirstButtonTap,
-  }) {
-    AddExerciseForm(
-      context: context,
-      descriptionController: _descriptionController,
-      repsController: _repsController,
-      setsController: _setsController,
-      timeController: _timeController,
-      title: LocaleKeys.enterExercise.tr(),
-      titleController: _titleController,
-      weightController: _weightController,
-      firstButtonText: firstButtonText,
-      onFirstButtonTap: onFirstButtonTap,
-      secondButtonText: secondButtonText ?? '',
-      onSecondButtonTap: onSecondButtonTap,
-    ).openDialog();
   }
 
   void _clearTextField() {

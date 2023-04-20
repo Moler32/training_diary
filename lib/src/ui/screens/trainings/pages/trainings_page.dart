@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
+import 'package:training_diary/src/ui/widgets/mixins/show_training_adding_form.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../cubit/trainings_cubit/trainings_cubit.dart';
 import '../../../../models/trainings/training_model.dart';
@@ -19,7 +20,8 @@ class TrainingsPage extends StatefulWidget {
   State<TrainingsPage> createState() => _TrainingsPageState();
 }
 
-class _TrainingsPageState extends State<TrainingsPage> {
+class _TrainingsPageState extends State<TrainingsPage>
+    with ShowTrainingAddingForm {
   late TrainingsCubit _trainingsCubit;
   late TextEditingController _titleController;
   late TextEditingController _weekDayController;
@@ -74,7 +76,10 @@ class _TrainingsPageState extends State<TrainingsPage> {
             emptyList: () {
               return EmptyListAddButton(
                 title: LocaleKeys.addTraining.tr(),
-                onPressed: () => _showAddingForm(
+                onPressed: () => showAddingForm(
+                  weekDayController: _weekDayController,
+                  titleController: _titleController,
+                  context: context,
                   firstButtonText: LocaleKeys.clear.tr(),
                   secondButtonText: LocaleKeys.add.tr(),
                   onFirstButtonTap: _clearTextField,
@@ -127,7 +132,10 @@ class _TrainingsPageState extends State<TrainingsPage> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               _titleController.text = trainings[index].title ?? '';
               _weekDayController.text = trainings[index].weekDay ?? '';
-              _showAddingForm(
+              showAddingForm(
+                weekDayController: _weekDayController,
+                titleController: _titleController,
+                context: context,
                 firstButtonText: LocaleKeys.clear.tr(),
                 secondButtonText: LocaleKeys.change.tr(),
                 onFirstButtonTap: _clearTextField,
@@ -139,24 +147,6 @@ class _TrainingsPageState extends State<TrainingsPage> {
         );
       }),
     );
-  }
-
-  void _showAddingForm({
-    required Function() onSecondButtonTap,
-    String? firstButtonText,
-    String? secondButtonText,
-    Function()? onFirstButtonTap,
-  }) {
-    AddTrainingForm(
-            title: LocaleKeys.enterTrainingAndDay.tr(),
-            firstButtonText: firstButtonText,
-            onFirstButtonTap: onFirstButtonTap,
-            titleController: _titleController,
-            weekDayController: _weekDayController,
-            context: context,
-            secondButtonText: secondButtonText ?? '',
-            onSecondButtonTap: onSecondButtonTap)
-        .openDialog();
   }
 
   void _clearTextField() {

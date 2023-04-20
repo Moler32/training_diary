@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/core/navigation/router.gr.dart';
+import 'package:training_diary/src/ui/widgets/mixins/show_training_adding_form.dart';
 import '../../../../core/navigation/main_router.dart';
 import '../../../cubit/trainings_cubit/trainings_cubit.dart' as trainings_cubit;
 import '../../../models/trainings/training_model.dart';
@@ -26,7 +27,8 @@ class TrainingsAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<TrainingsAppBar> createState() => _TrainingsAppBarState();
 }
 
-class _TrainingsAppBarState extends State<TrainingsAppBar> {
+class _TrainingsAppBarState extends State<TrainingsAppBar>
+    with ShowTrainingAddingForm {
   late final trainings_cubit.TrainingsCubit _trainingsCubit;
 
   late TextEditingController _titleController;
@@ -68,6 +70,9 @@ class _TrainingsAppBarState extends State<TrainingsAppBar> {
               IconButton(
                 splashRadius: 30,
                 onPressed: () => showAddingForm(
+                  weekDayController: _weekDayController,
+                  titleController: _titleController,
+                  context: context,
                   firstButtonText: LocaleKeys.clear.tr(),
                   secondButtonText: LocaleKeys.add.tr(),
                   onFirstButtonTap: _clearTextField,
@@ -102,24 +107,6 @@ class _TrainingsAppBarState extends State<TrainingsAppBar> {
         style: Theme.of(context).textTheme.titleLarge,
       ),
     );
-  }
-
-  void showAddingForm({
-    required Function() onSecondButtonTap,
-    String? firstButtonText,
-    String? secondButtonText,
-    Function()? onFirstButtonTap,
-  }) {
-    AddTrainingForm(
-            title: LocaleKeys.enterTrainingAndDay.tr(),
-            firstButtonText: firstButtonText,
-            onFirstButtonTap: onFirstButtonTap,
-            titleController: _titleController,
-            weekDayController: _weekDayController,
-            context: context,
-            secondButtonText: secondButtonText ?? '',
-            onSecondButtonTap: onSecondButtonTap)
-        .openDialog();
   }
 
   void _addTraining(Training training) {

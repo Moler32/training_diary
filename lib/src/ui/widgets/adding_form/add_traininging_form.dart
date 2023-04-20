@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/src/ui/widgets/buttons/add_button.dart';
 import 'package:training_diary/src/ui/widgets/buttons/clear_button.dart';
-import 'package:training_diary/src/ui/widgets/text_fields/training_add_text_field.dart';
+import 'package:training_diary/src/ui/widgets/text_fields/add_text_field.dart';
 
 class AddTrainingForm {
   const AddTrainingForm({
@@ -14,10 +14,8 @@ class AddTrainingForm {
     required this.onFirstButtonTap,
     required this.onSecondButtonTap,
     required this.secondButtonText,
-    required this.context,
   });
 
-  final BuildContext context;
   final String secondButtonText;
   final String? firstButtonText;
   final void Function()? onFirstButtonTap;
@@ -26,7 +24,7 @@ class AddTrainingForm {
   final TextEditingController weekDayController;
   final String title;
 
-  Future<String?> openDialog() => showDialog<String>(
+  Future<String?> openDialog(BuildContext context) => showDialog<String>(
         context: context,
         builder: (context) => AlertDialog(
           scrollable: true,
@@ -36,11 +34,11 @@ class AddTrainingForm {
           ),
           content: Column(
             children: [
-              TrainingAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.name.tr(),
                 controller: titleController,
               ),
-              TrainingAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.day.tr(),
                 controller: weekDayController,
               ),

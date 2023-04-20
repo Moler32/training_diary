@@ -7,6 +7,7 @@ import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
 import 'package:training_diary/src/ui/screens/exercises/widgets/divider.dart';
+import 'package:training_diary/src/ui/widgets/mixins/show_exercise_adding_form.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../cubit/exercises_cubit/exercises_cubit.dart';
 import '../../../../cubit/stopwatch_cubit/stopwatch_cubit.dart';
@@ -35,7 +36,8 @@ class ExercisesPage extends StatefulWidget {
   State<ExercisesPage> createState() => _ExercisesPageState();
 }
 
-class _ExercisesPageState extends State<ExercisesPage> {
+class _ExercisesPageState extends State<ExercisesPage>
+    with ShowExerciseAddingForm {
   late final exercises_cubit.ExercisesCubit _exercisesCubit;
 
   late TextEditingController _titleController;
@@ -108,7 +110,14 @@ class _ExercisesPageState extends State<ExercisesPage> {
                     child: EmptyListAddButton(
                       title: LocaleKeys.addExercise.tr(),
                       onPressed: () {
-                        _showAddingForm(
+                        showAddingForm(
+                          context: context,
+                          descriptionController: _descriptionController,
+                          setsController: _setsController,
+                          repsController: _repsController,
+                          timeController: _timeController,
+                          titleController: _titleController,
+                          weightController: _weightController,
                           onFirstButtonTap: _clearTextField,
                           firstButtonText: LocaleKeys.clear.tr(),
                           onSecondButtonTap: () {
@@ -214,7 +223,14 @@ class _ExercisesPageState extends State<ExercisesPage> {
                       _timeController.text = exercises[index].time ?? '';
                       _descriptionController.text =
                           exercises[index].description ?? '';
-                      _showAddingForm(
+                      showAddingForm(
+                        context: context,
+                        descriptionController: _descriptionController,
+                        setsController: _setsController,
+                        repsController: _repsController,
+                        timeController: _timeController,
+                        titleController: _titleController,
+                        weightController: _weightController,
                         firstButtonText: LocaleKeys.clear.tr(),
                         secondButtonText: LocaleKeys.change.tr(),
                         onFirstButtonTap: _clearTextField,
@@ -237,28 +253,6 @@ class _ExercisesPageState extends State<ExercisesPage> {
       widget.training.exercises[i].isComlete = false;
     }
     _exercisesCubit.editExersice(widget.training, widget.index);
-  }
-
-  void _showAddingForm({
-    required Function() onSecondButtonTap,
-    String? firstButtonText,
-    String? secondButtonText,
-    Function()? onFirstButtonTap,
-  }) {
-    AddExerciseForm(
-      context: context,
-      descriptionController: _descriptionController,
-      repsController: _repsController,
-      setsController: _setsController,
-      timeController: _timeController,
-      title: LocaleKeys.enterExercise.tr(),
-      titleController: _titleController,
-      weightController: _weightController,
-      firstButtonText: firstButtonText,
-      onFirstButtonTap: onFirstButtonTap,
-      secondButtonText: secondButtonText ?? '',
-      onSecondButtonTap: onSecondButtonTap,
-    ).openDialog();
   }
 
   void _clearTextField() {

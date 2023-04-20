@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/src/ui/widgets/buttons/add_button.dart';
 import 'package:training_diary/src/ui/widgets/buttons/clear_button.dart';
-import 'package:training_diary/src/ui/widgets/text_fields/exercise_add_text_field.dart';
+import 'package:training_diary/src/ui/widgets/text_fields/add_text_field.dart';
 
 class AddExerciseForm {
   AddExerciseForm({
@@ -45,27 +45,27 @@ class AddExerciseForm {
           content: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ExersiceAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.name.tr(),
                 controller: titleController,
               ),
-              ExersiceAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.weight.tr(),
                 controller: weightController,
               ),
-              ExersiceAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.time.tr(),
                 controller: timeController,
               ),
-              ExersiceAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.sets.tr(),
                 controller: setsController,
               ),
-              ExersiceAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.reps.tr(),
                 controller: repsController,
               ),
-              ExersiceAddTextField(
+              AddTextField(
                 hintText: LocaleKeys.description.tr(),
                 controller: descriptionController,
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TrainingAddTextField extends StatelessWidget {
-  const TrainingAddTextField(
+class AddTextField extends StatelessWidget {
+  const AddTextField(
       {super.key, required this.controller, required this.hintText});
 
   final TextEditingController controller;
