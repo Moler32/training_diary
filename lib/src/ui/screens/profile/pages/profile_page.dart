@@ -5,7 +5,7 @@ import 'package:training_diary/core/constants/images.dart';
 import 'package:training_diary/core/di/injection.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/src/cubit/locale_cubit/locale_cubit.dart';
-import 'package:training_diary/src/data_sources/isar_db/isar.dart';
+import 'package:training_diary/src/data_sources/isar_db/training_isar.dart';
 import 'package:training_diary/src/models/locale/locale_model.dart';
 
 import 'package:training_diary/src/ui/widgets/app_bar/profile_app_bar.dart';

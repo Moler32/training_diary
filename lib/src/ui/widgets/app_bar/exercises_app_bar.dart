@@ -7,7 +7,7 @@ import 'package:training_diary/core/navigation/main_router.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
 import 'package:training_diary/src/ui/widgets/mixins/show_exercise_adding_form.dart';
-import '../../../data_sources/isar_db/isar.dart';
+import '../../../data_sources/isar_db/training_isar.dart';
 import '../../../models/trainings/training_model.dart';
 
 class ExercisesAppBar extends StatefulWidget implements PreferredSizeWidget {

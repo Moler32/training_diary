@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../data_sources/isar_db/isar.dart';
+import '../../data_sources/isar_db/training_isar.dart';
 import '../../models/trainings/training_model.dart';
 part 'stopwatch_state.dart';
 part 'stopwatch_cubit.freezed.dart';

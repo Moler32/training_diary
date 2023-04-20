@@ -14,13 +14,13 @@ mixin ShowTrainingAddingForm {
     required TextEditingController weekDayController,
   }) {
     AddTrainingForm(
-            title: LocaleKeys.enterTrainingAndDay.tr(),
-            firstButtonText: firstButtonText,
-            onFirstButtonTap: onFirstButtonTap,
-            titleController: titleController,
-            weekDayController: weekDayController,
-            secondButtonText: secondButtonText ?? '',
-            onSecondButtonTap: onSecondButtonTap)
-        .openDialog(context);
+      title: LocaleKeys.enterTrainingAndDay.tr(),
+      firstButtonText: firstButtonText,
+      onFirstButtonTap: onFirstButtonTap,
+      titleController: titleController,
+      weekDayController: weekDayController,
+      secondButtonText: secondButtonText ?? '',
+      onSecondButtonTap: onSecondButtonTap,
+    ).openDialog(context);
   }
 }

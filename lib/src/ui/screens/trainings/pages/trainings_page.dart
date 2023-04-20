@@ -81,7 +81,7 @@ class _TrainingsPageState extends State<TrainingsPage>
                   context: context,
                   firstButtonText: LocaleKeys.clear.tr(),
                   secondButtonText: LocaleKeys.add.tr(),
-                  onFirstButtonTap: _clearTextField,
+                  onFirstButtonTap: () => _clearTextField(),
                   onSecondButtonTap: () => _addTraining(
                     Training(
                       _titleController.text,
@@ -124,8 +124,8 @@ class _TrainingsPageState extends State<TrainingsPage>
           index: index,
           key: ValueKey(index),
           training: trainings[index],
-          title: trainings[index].title!,
-          weekDay: trainings[index].weekDay!,
+          title: trainings[index].title ?? '',
+          weekDay: trainings[index].weekDay ?? '',
           exercises: trainings[index].exercises,
           onChangeTapped: () {
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -137,7 +137,7 @@ class _TrainingsPageState extends State<TrainingsPage>
                 context: context,
                 firstButtonText: LocaleKeys.clear.tr(),
                 secondButtonText: LocaleKeys.change.tr(),
-                onFirstButtonTap: _clearTextField,
+                onFirstButtonTap: () => _clearTextField(),
                 onSecondButtonTap: () => _editTraining(trainings[index]),
               );
             });

@@ -6,7 +6,7 @@ import 'package:training_diary/core/di/injection.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/core/styles/theme/constants.dart';
 import 'package:training_diary/src/cubit/stopwatch_cubit/stopwatch_cubit.dart';
-import 'package:training_diary/src/data_sources/isar_db/isar.dart';
+import 'package:training_diary/src/data_sources/isar_db/training_isar.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../../core/navigation/router.gr.dart';
 import '../../../../cubit/trainings_cubit/trainings_cubit.dart'

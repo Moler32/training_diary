@@ -10,17 +10,17 @@ class IsarDB {
   List<Training> _trainings = [];
   List<Training> get trainings => _trainings;
 
-  List<Exercise> _exercises = [];
+  // List<Exercise> _exercises = [];
   // List<Exercise> get exercises => _exercises;
 
   Isar? isar;
   List<LocaleModel> _localeModel = [];
   List<LocaleModel> get localeModel => _localeModel;
 
-  Future<List<Exercise>> fetchExercises(int trainingIndex) async {
-    _exercises = trainings[trainingIndex].exercises;
-    return _exercises;
-  }
+  // Future<List<Exercise>> fetchExercises(int trainingIndex) async {
+  //   _exercises = trainings[trainingIndex].exercises;
+  //   return _exercises;
+  // }
 
   Future<LocaleModel?> fetchLanguage() async {
     _localeModel = await isar!.localeModels.where().findAll();
@@ -66,11 +66,11 @@ class IsarDB {
     });
   }
 
-  Future<void> editExercise(Training training) async {
-    await isar!.writeTxn(() async {
-      isar!.trainings.put(training);
-    });
-  }
+  // Future<void> editExercise(Training training) async {
+  //   await isar!.writeTxn(() async {
+  //     isar!.trainings.put(training);
+  //   });
+  // }
 
   Future<void> deleteTraining(Training training) async {
     await isar!.writeTxn(() async {
@@ -79,30 +79,30 @@ class IsarDB {
     _trainings.remove(training);
   }
 
-  Future<void> addExercise(Exercise exercise, Training training) async {
-    await isar!.writeTxn(() async {
-      final list = training.exercises.toList();
-      list.add(exercise);
-      training.exercises = list;
-      isar!.trainings.put(training);
-    });
-  }
+  // Future<void> addExercise(Exercise exercise, Training training) async {
+  //   await isar!.writeTxn(() async {
+  //     final list = training.exercises.toList();
+  //     list.add(exercise);
+  //     training.exercises = list;
+  //     isar!.trainings.put(training);
+  //   });
+  // }
 
-  Future<void> changeCompleteStatus(Training training) async {
-    await isar!.writeTxn(() async {
-      isar!.trainings.put(training);
-    });
-  }
+  // Future<void> changeCompleteStatus(Training training) async {
+  //   await isar!.writeTxn(() async {
+  //     isar!.trainings.put(training);
+  //   });
+  // }
 
-  Future<void> deleteExercise(Training training) async {
-    await isar!.writeTxn(() async {
-      isar!.trainings.put(training);
-    });
-  }
+  // Future<void> deleteExercise(Training training) async {
+  //   await isar!.writeTxn(() async {
+  //     isar!.trainings.put(training);
+  //   });
+  // }
 
-  Future<void> onReorderableExercise(Training training) async {
-    await isar!.writeTxn(() async {
-      isar!.trainings.put(training);
-    });
-  }
+  // Future<void> onReorderableExercise(Training training) async {
+  //   await isar!.writeTxn(() async {
+  //     isar!.trainings.put(training);
+  //   });
+  // }
 }

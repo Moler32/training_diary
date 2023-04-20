@@ -5,15 +5,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:talker_flutter/talker_flutter.dart';
-import 'package:training_diary/src/data_sources/isar_db/isar.dart';
 import 'package:training_diary/src/models/trainings/training_model.dart';
+import 'package:training_diary/src/repositories/exercises/exercises_repository.dart';
 part 'exercises_state.dart';
 part 'exercises_cubit.freezed.dart';
 
 @injectable
 class ExercisesCubit extends Cubit<ExercisesState> {
-  ExercisesCubit(this.isarDB) : super(const ExercisesState.loading());
-  final IsarDB isarDB;
+  ExercisesCubit(this._exercisesRepository)
+      : super(const ExercisesState.loading());
+  // final IsarDB isarDB;
+
+  final ExercisesRepository _exercisesRepository;
 
   List<Exercise> _exercises = [];
 
@@ -36,14 +39,14 @@ class ExercisesCubit extends Cubit<ExercisesState> {
   }
 
   Future<List<Exercise>> _getExercises(int trainingIndex) async {
-    _exercises = await isarDB.fetchExercises(trainingIndex);
+    _exercises = await _exercisesRepository.fetchExercises(trainingIndex);
     return _exercises;
   }
 
   Future<void> addExercise(
       Exercise exercise, Training training, int trainingIndex) async {
     try {
-      await isarDB.addExercise(exercise, training);
+      await _exercisesRepository.addExercise(exercise, training);
       await _getExercises(trainingIndex);
       emit(ExercisesState.loadedList(_exercises));
     } catch (e, st) {
@@ -98,7 +101,7 @@ class ExercisesCubit extends Cubit<ExercisesState> {
   ) async {
     try {
       exercise.isComlete = !exercise.isComlete;
-      await isarDB.changeCompleteStatus(training);
+      await _exercisesRepository.changeCompleteStatus(training);
       await _getExercises(trainingIndex);
       emit(const ExercisesState.loading());
       emit(ExercisesState.loadedList(_exercises));
@@ -117,7 +120,7 @@ class ExercisesCubit extends Cubit<ExercisesState> {
       final list = training.exercises.toList();
       list.remove(exercise);
       training.exercises = list;
-      await isarDB.deleteExercise(training);
+      await _exercisesRepository.deleteExercise(training);
       await _getExercises(trainingIndex);
       emit(ExercisesState.loadedList(_exercises));
     } catch (e, st) {
@@ -128,7 +131,7 @@ class ExercisesCubit extends Cubit<ExercisesState> {
 
   Future<void> editExersice(Training training, int trainingIndex) async {
     try {
-      await isarDB.editExercise(training);
+      await _exercisesRepository.editExercise(training);
       await _getExercises(trainingIndex);
       emit(const ExercisesState.loading());
       emit(ExercisesState.loadedList(_exercises));
@@ -149,7 +152,7 @@ class ExercisesCubit extends Cubit<ExercisesState> {
       list.removeAt(oldIndex);
       list.insert(newIndex, item);
       training.exercises = list;
-      isarDB.onReorderableExercise(training);
+      _exercisesRepository.onReorderableExercise(training);
       await _getExercises(trainingIndex);
 
       // emit(const ExercisesState.loading());

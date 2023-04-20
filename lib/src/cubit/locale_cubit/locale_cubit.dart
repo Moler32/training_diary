@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 import 'package:training_diary/core/constants/images.dart';
-import 'package:training_diary/src/data_sources/isar_db/isar.dart';
+import 'package:training_diary/src/data_sources/isar_db/training_isar.dart';
 import 'package:training_diary/src/models/locale/locale_model.dart';
 
 part 'locale_state.dart';

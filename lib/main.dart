@@ -12,7 +12,7 @@ import 'package:training_diary/core/generated/translations/codegen_loader.g.dart
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:training_diary/src/cubit/trainings_cubit/trainings_cubit.dart';
-import 'package:training_diary/src/data_sources/isar_db/isar.dart';
+import 'package:training_diary/src/data_sources/isar_db/training_isar.dart';
 import 'package:training_diary/src/data_sources/isar_db/isar_locale.dart';
 import 'core/di/injection.dart';
 
