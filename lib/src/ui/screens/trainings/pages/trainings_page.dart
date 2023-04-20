@@ -6,7 +6,6 @@ import 'package:training_diary/src/ui/widgets/mixins/show_training_adding_form.d
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../cubit/trainings_cubit/trainings_cubit.dart';
 import '../../../../models/trainings/training_model.dart';
-import '../../../widgets/adding_form/add_traininging_form.dart';
 import '../../../widgets/app_bar/trainings_app_bar.dart';
 import '../../../widgets/buttons/empty_list_add_button.dart';
 import '../widgets/single_training.dart';

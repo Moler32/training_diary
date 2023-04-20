@@ -13,7 +13,6 @@ import '../../../../cubit/exercises_cubit/exercises_cubit.dart';
 import '../../../../cubit/stopwatch_cubit/stopwatch_cubit.dart';
 import '../../../../data_sources/isar_db/isar.dart';
 import '../../../../models/trainings/training_model.dart';
-import '../../../widgets/adding_form/add_exercise_form.dart';
 import '../../../widgets/app_bar/exercises_app_bar.dart';
 import '../../../widgets/buttons/empty_list_add_button.dart';
 import '../widgets/single_exercise.dart';

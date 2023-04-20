@@ -9,7 +9,6 @@ import 'package:training_diary/src/ui/widgets/mixins/show_training_adding_form.d
 import '../../../../core/navigation/main_router.dart';
 import '../../../cubit/trainings_cubit/trainings_cubit.dart' as trainings_cubit;
 import '../../../models/trainings/training_model.dart';
-import '../adding_form/add_traininging_form.dart';
 
 class TrainingsAppBar extends StatefulWidget implements PreferredSizeWidget {
   TrainingsAppBar({
