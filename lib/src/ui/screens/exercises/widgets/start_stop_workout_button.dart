@@ -5,7 +5,7 @@ class StartStopWorkoutButton extends StatelessWidget {
     super.key,
     this.onStartTap,
     this.onStopTap,
-    this.title,
+    // this.title,
     this.icon,
     this.isStarting,
     this.height,
@@ -13,7 +13,7 @@ class StartStopWorkoutButton extends StatelessWidget {
 
   final void Function()? onStartTap;
   final void Function()? onStopTap;
-  final String? title;
+  // final String? title;
   final Widget? icon;
   final bool? isStarting;
   final double? height;

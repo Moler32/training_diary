@@ -1,22 +1,23 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
-import '../../data_sources/provider/isar_provider.dart';
-import '../../data_sources/provider/isar_provider_listener.dart';
+import '../../data_sources/isar_db/isar.dart';
 import '../../models/trainings/training_model.dart';
 
 part 'trainings_state.dart';
 part 'trainings_cubit.freezed.dart';
 
 @injectable
-class TrainingsCubit extends Cubit<TrainingsState> with IsarReposytoryListener {
-  TrainingsCubit(this.isarProvider) : super(const TrainingsState.loading());
+class TrainingsCubit extends Cubit<TrainingsState> {
+  TrainingsCubit(this.isarDB) : super(const TrainingsState.loading());
   //  {
   //   _listenTrainingsChanges();
   // }
 
-  final IsarProvider isarProvider;
+  final IsarDB isarDB;
 
   List<Training> _trainings = [];
 
@@ -29,7 +30,7 @@ class TrainingsCubit extends Cubit<TrainingsState> with IsarReposytoryListener {
   // }
 
   Future<List<Training>> _getTrainings() async {
-    _trainings = await isarProvider.fetchTrainings();
+    _trainings = await isarDB.fetchTrainings();
     return _trainings;
   }
 
@@ -43,42 +44,52 @@ class TrainingsCubit extends Cubit<TrainingsState> with IsarReposytoryListener {
       } else {
         emit(TrainingsState.loaded(_trainings));
       }
-    } catch (e) {
+    } catch (e, st) {
       emit(TrainingsState.error(e.toString()));
+      GetIt.I<Talker>().handle(e, st);
     }
   }
 
   Future<void> addTraining(Training training) async {
     try {
-      await isarProvider.addTraining(training);
+      await isarDB.addTraining(training);
       await _getTrainings();
       emit(TrainingsState.loaded(_trainings));
-    } catch (e) {
+    } catch (e, st) {
       emit(TrainingsState.error(e.toString()));
+      GetIt.I<Talker>().handle(e, st);
     }
   }
 
   Future<void> deleteTraining(Training training) async {
     try {
-      await isarProvider.deleteTraining(training);
+      await isarDB.deleteTraining(training);
       await _getTrainings();
       if (_trainings.isNotEmpty) {
         emit(TrainingsState.loaded(_trainings));
       } else {
         emit(const TrainingsState.emptyList());
       }
-    } catch (e) {
+    } catch (e, st) {
       emit(TrainingsState.error(e.toString()));
+      GetIt.I<Talker>().handle(e, st);
     }
   }
 
   Future<void> renameTraining(Training training) async {
     try {
-      await isarProvider.editTraining(training);
+      await isarDB.editTraining(training);
       await _getTrainings();
       emit(TrainingsState.loaded(_trainings));
-    } catch (e) {
+    } catch (e, st) {
       emit(TrainingsState.error(e.toString()));
+      GetIt.I<Talker>().handle(e, st);
     }
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    super.onError(error, stackTrace);
+    GetIt.I<Talker>().handle(error, stackTrace);
   }
 }

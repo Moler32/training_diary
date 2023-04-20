@@ -1,5 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
+import 'package:training_diary/core/styles/theme/constants.dart';
+import 'package:training_diary/src/models/trainings/training_model.dart';
 
 class SingleExercise extends StatelessWidget {
   const SingleExercise(
@@ -14,7 +18,8 @@ class SingleExercise extends StatelessWidget {
       this.isComplete = false,
       this.onTapCheckbox,
       this.onSwapLeft,
-      this.onSwapRight});
+      this.onSwapRight,
+      this.exercises});
 
   final int index;
   final String? title;
@@ -25,6 +30,7 @@ class SingleExercise extends StatelessWidget {
   final String? weight;
   final String? time;
   final String? description;
+  final List<Exercise>? exercises;
   final bool isComplete;
   final Function()? onTapCheckbox;
   final Function()? onSwapLeft;
@@ -33,7 +39,8 @@ class SingleExercise extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      // key: ValueKey(index),
+      closeOnScroll: false,
+      // key: Key('$index'),
       startActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
@@ -41,39 +48,42 @@ class SingleExercise extends StatelessWidget {
             onPressed: (_) {
               onSwapRight?.call();
             },
-            backgroundColor: Color(0xFF21B7CA),
+            backgroundColor: const Color(0xFF21B7CA),
             foregroundColor: Colors.white,
             icon: Icons.edit,
-            label: 'Редактировать',
+            label: LocaleKeys.change.tr(),
           ),
         ],
       ),
       endActionPane: ActionPane(
-        motion: ScrollMotion(),
+        motion: const ScrollMotion(),
         children: [
           SlidableAction(
             onPressed: (_) {
               onSwapLeft?.call();
             },
-            backgroundColor: Color(0xFFFE4A49),
+            backgroundColor: const Color(0xFFFE4A49),
             foregroundColor: Colors.white,
             icon: Icons.delete,
-            label: 'Удалить',
+            label: LocaleKeys.delete.tr(),
           ),
         ],
       ),
-
       child: InkWell(
+        // key: Key('$index'),
+
         onTap: () {
           showModalBottomSheet(
               backgroundColor: Colors.transparent,
               builder: (BuildContext context) {
                 return DecoratedBox(
                   decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25))),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25),
+                    ),
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
                     child: Column(
@@ -91,7 +101,7 @@ class SingleExercise extends StatelessWidget {
                         ),
                         Text(
                           title ?? '',
-                          style: TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
                           height: 10,
@@ -99,10 +109,14 @@ class SingleExercise extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Подходов: $sets',
-                                style: TextStyle(fontSize: 16)),
-                            Text('Повторений: $reps',
-                                style: TextStyle(fontSize: 16)),
+                            Text(
+                              '${LocaleKeys.sets.tr()}: $sets',
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              '${LocaleKeys.reps.tr()}: $reps',
+                              style: const TextStyle(fontSize: 16),
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -111,10 +125,14 @@ class SingleExercise extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Вес: $weight кг',
-                                style: TextStyle(fontSize: 16)),
-                            Text('Время: $time мин',
-                                style: TextStyle(fontSize: 16)),
+                            Text(
+                              '${LocaleKeys.weight.tr()}: $weight',
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              '${LocaleKeys.time.tr()}: $time',
+                              style: const TextStyle(fontSize: 16),
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -122,12 +140,17 @@ class SingleExercise extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            Text('Описание:', style: TextStyle(fontSize: 16)),
-                            SizedBox(
+                            Text(
+                              '${LocaleKeys.description.tr()}:',
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            const SizedBox(
                               height: 15,
                             ),
-                            Text(description ?? '',
-                                style: TextStyle(fontSize: 16)),
+                            Text(
+                              description ?? '',
+                              style: const TextStyle(fontSize: 16),
+                            ),
                           ],
                         ),
                       ],
@@ -137,24 +160,48 @@ class SingleExercise extends StatelessWidget {
               },
               context: context);
         },
-        child: Padding(
-          padding: const EdgeInsets.all(10),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: exercisesColors,
+              ),
+              borderRadius: exercises!.length == 1
+                  ? BorderRadius.circular(10)
+                  : index == 0
+                      ? const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        )
+                      : index == exercises!.length - 1
+                          ? const BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            )
+                          : null),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.fitness_center),
-              Text(
-                title ?? '',
-                style: TextStyle(fontSize: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Text(
+                  title ?? '',
+                  style: const TextStyle(fontSize: 20),
+                ),
               ),
-              Row(children: [
-                Checkbox(
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Transform.scale(
+                  scale: 1.3,
+                  child: Checkbox(
                     value: isComplete,
                     onChanged: (value) {
                       onTapCheckbox?.call();
-                    }),
-                // Icon(Icons.keyboard_arrow_right)
-              ]),
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),

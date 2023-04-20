@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-
+import 'package:talker_flutter/talker_flutter.dart';
+import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
+import 'package:training_diary/core/navigation/router.gr.dart';
 import '../../../../core/navigation/main_router.dart';
 import '../../../cubit/trainings_cubit/trainings_cubit.dart' as trainings_cubit;
-import '../../../data_sources/provider/isar_provider.dart';
 import '../../../models/trainings/training_model.dart';
-import '../../../repositories/trainings/trainings_repositiry.dart';
-import '../../screens/trainings/pages/trainings_page.dart';
 import '../adding_form/add_traininging_form.dart';
 
 class TrainingsAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -49,32 +50,57 @@ class _TrainingsAppBarState extends State<TrainingsAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      centerTitle: true,
       leading: Padding(
         padding: const EdgeInsets.only(left: 10),
         child: IconButton(
           splashRadius: 30,
-          onPressed: () {},
+          onPressed: () {
+            MainRouter().push(const ProfileRoute());
+          },
           icon: const Icon(Icons.settings),
         ),
       ),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 10),
-          child: IconButton(
-            splashRadius: 30,
-            onPressed: () => showAddingForm(
-              firstButtonText: 'Очистить',
-              secondButtonText: 'Добавить',
-              onFirstButtonTap: _clearTextField,
-              onSecondButtonTap: () => _addTraining(
-                  Training(_titleController.text, _weekDayController.text, [])),
-            ),
-            icon: const Icon(Icons.add),
+          child: Row(
+            children: [
+              IconButton(
+                splashRadius: 30,
+                onPressed: () => showAddingForm(
+                  firstButtonText: LocaleKeys.clear.tr(),
+                  secondButtonText: LocaleKeys.add.tr(),
+                  onFirstButtonTap: _clearTextField,
+                  onSecondButtonTap: () => _addTraining(
+                    Training(
+                      _titleController.text,
+                      _weekDayController.text,
+                      [],
+                    ),
+                  ),
+                ),
+                icon: const Icon(Icons.add),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => TalkerScreen(
+                        talker: GetIt.I<Talker>(),
+                      ),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.document_scanner_outlined),
+              )
+            ],
           ),
         ),
       ],
-      title: Text(widget.title ?? ''),
+      title: Text(
+        LocaleKeys.trainingDiary.tr(),
+        style: Theme.of(context).textTheme.titleLarge,
+      ),
     );
   }
 
@@ -85,6 +111,7 @@ class _TrainingsAppBarState extends State<TrainingsAppBar> {
     Function()? onFirstButtonTap,
   }) {
     AddTrainingForm(
+            title: LocaleKeys.enterTrainingAndDay.tr(),
             firstButtonText: firstButtonText,
             onFirstButtonTap: onFirstButtonTap,
             titleController: _titleController,

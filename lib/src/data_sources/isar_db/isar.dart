@@ -1,48 +1,59 @@
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
-import 'package:training_diary/src/cubit/trainings_cubit/trainings_cubit.dart';
+import 'package:training_diary/core/constants/images.dart';
+import 'package:training_diary/src/models/locale/locale_model.dart';
 
 import '../../models/trainings/training_model.dart';
-import 'isar_provider_listener.dart';
 
 @LazySingleton()
-class IsarProvider {
-  // IsarProvider() {
-  //   init();
-  // }
-
+class IsarDB {
   List<Training> _trainings = [];
   List<Training> get trainings => _trainings;
 
   List<Exercise> _exercises = [];
+  // List<Exercise> get exercises => _exercises;
 
   Isar? isar;
-  // final List<IsarReposytoryListener> _listeners = [];
-
-  // void init() async {
-  //   isar = await Isar.open(
-  //     [TrainingSchema],
-  //   );
-
-  // final trainingsCollection = isar!.trainings;
-  // _trainings = await trainingsCollection.where().findAll();
-  // }
+  List<LocaleModel> _localeModel = [];
+  List<LocaleModel> get localeModel => _localeModel;
 
   Future<List<Exercise>> fetchExercises(int trainingIndex) async {
     _exercises = trainings[trainingIndex].exercises;
     return _exercises;
   }
 
+  Future<LocaleModel?> fetchLanguage() async {
+    _localeModel = await isar!.localeModels.where().findAll();
+    if (_localeModel.isEmpty) {
+      _localeModel = [LocaleModel('en', usaFlag, 'USA')];
+    }
+    return localeModel.first;
+  }
+
+  Future<void> addlanguage(LocaleModel localeModel) async {
+    await isar!.writeTxn(() async {
+      await isar!.localeModels.clear();
+      isar!.localeModels.put(localeModel);
+    });
+  }
+
   Future<List<Training>> fetchTrainings() async {
     isar ??= await Isar.open(
-      [TrainingSchema],
+      [TrainingSchema, LocaleModelSchema],
     );
+    // await isar!.clear();
     _trainings = await isar!.trainings.where().findAll();
     return _trainings;
   }
 
   Future<void> addTraining(Training training) async {
+    await isar!.writeTxn(() async {
+      isar!.trainings.put(training);
+    });
+    _trainings.add(training);
+  }
+
+  Future<void> saveTrainingRuningStatus(Training training) async {
     await isar!.writeTxn(() async {
       isar!.trainings.put(training);
     });
@@ -89,24 +100,9 @@ class IsarProvider {
     });
   }
 
-  // void addListener(IsarReposytoryListener listener) {
-  //   if (!_listeners.contains(listener)) {
-  //     _listeners.add(listener);
-  //   }
-  // }
-
-  // void removeListener(IsarReposytoryListener listener) {
-  //   if (!_listeners.contains(listener)) {
-  //     _listeners.remove(listener);
-  //   }
-  // }
-
-  // Future<void> onUpdateAllTrainings() async {
-  //   print('6');
-  //   final trainings = await fetchTrainings();
-  //   for (final listener in _listeners) {
-  //     listener.onUpdateTrainings(trainings);
-  //     print('0');
-  //   }
-  // }
+  Future<void> onReorderableExercise(Training training) async {
+    await isar!.writeTxn(() async {
+      isar!.trainings.put(training);
+    });
+  }
 }

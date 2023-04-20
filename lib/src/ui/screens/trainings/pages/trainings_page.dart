@@ -1,10 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:training_diary/generated/locale_keys.g.dart';
-import 'package:training_diary/src/cubit/trainings_cubit/trainings_cubit.dart'
-    as trainings_cubit;
-
+import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../cubit/trainings_cubit/trainings_cubit.dart';
 import '../../../../models/trainings/training_model.dart';
@@ -23,8 +20,7 @@ class TrainingsPage extends StatefulWidget {
 }
 
 class _TrainingsPageState extends State<TrainingsPage> {
-  late final trainings_cubit.TrainingsCubit _trainingsCubit;
-
+  late TrainingsCubit _trainingsCubit;
   late TextEditingController _titleController;
   late TextEditingController _weekDayController;
 
@@ -33,7 +29,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
     super.initState();
     _titleController = TextEditingController();
     _weekDayController = TextEditingController();
-    _trainingsCubit = context.read<trainings_cubit.TrainingsCubit>();
+    _trainingsCubit = context.read<TrainingsCubit>();
     _trainingsCubit.fetchTrainings();
   }
 
@@ -48,9 +44,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TrainingsAppBar(
-        title: LocaleKeys.trainingDiary.tr(),
-      ),
+      appBar: TrainingsAppBar(),
       body: BlocConsumer<TrainingsCubit, TrainingsState>(
         bloc: _trainingsCubit,
         listener: (context, state) {
@@ -68,41 +62,52 @@ class _TrainingsPageState extends State<TrainingsPage> {
               curr is Loading;
         },
         builder: (context, state) {
-          return state.maybeWhen(loading: () {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }, loaded: (trainings) {
-            return _buildTrainingsList(trainings);
-          }, emptyList: () {
-            return EmptyListAddButton(
-              title: 'Добавить тренировку',
-              onPressed: () => _showAddingForm(
-                firstButtonText: 'Очистить',
-                secondButtonText: 'Добавить',
-                onFirstButtonTap: _clearTextField,
-                onSecondButtonTap: () => _addTraining(Training(
-                    _titleController.text, _weekDayController.text, [])),
-              ),
-            );
-          }, error: (message) {
-            return Center(
-              child: Text(message),
-            );
-          }, orElse: () {
-            return const Text('orElse');
-          });
+          return state.maybeWhen(
+            loading: () {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+            loaded: (trainings) {
+              return _buildTrainingsList(trainings);
+            },
+            emptyList: () {
+              return EmptyListAddButton(
+                title: LocaleKeys.addTraining.tr(),
+                onPressed: () => _showAddingForm(
+                  firstButtonText: LocaleKeys.clear.tr(),
+                  secondButtonText: LocaleKeys.add.tr(),
+                  onFirstButtonTap: _clearTextField,
+                  onSecondButtonTap: () => _addTraining(
+                    Training(
+                      _titleController.text,
+                      _weekDayController.text,
+                      [],
+                    ),
+                  ),
+                ),
+              );
+            },
+            error: (message) {
+              return Center(
+                child: Text(message),
+              );
+            },
+            orElse: () {
+              return Container();
+            },
+          );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddingForm(
-          firstButtonText: 'Очистить',
-          secondButtonText: 'Добавить',
-          onFirstButtonTap: _clearTextField,
-          onSecondButtonTap: () => _addTraining(
-              Training(_titleController.text, _weekDayController.text, [])),
-        ),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //     child: const Icon(Icons.add),
+      //     onPressed: () => _showAddingForm(
+      //           firstButtonText: 'Очистить',
+      //           secondButtonText: 'Добавить',
+      //           onFirstButtonTap: _clearTextField,
+      //           onSecondButtonTap: () => _addTraining(Training(
+      //               _titleController.text, _weekDayController.text, [])),
+      //         )),
     );
   }
 
@@ -123,8 +128,8 @@ class _TrainingsPageState extends State<TrainingsPage> {
               _titleController.text = trainings[index].title ?? '';
               _weekDayController.text = trainings[index].weekDay ?? '';
               _showAddingForm(
-                firstButtonText: 'Очистить',
-                secondButtonText: 'Изменить',
+                firstButtonText: LocaleKeys.clear.tr(),
+                secondButtonText: LocaleKeys.change.tr(),
                 onFirstButtonTap: _clearTextField,
                 onSecondButtonTap: () => _editTraining(trainings[index]),
               );
@@ -143,6 +148,7 @@ class _TrainingsPageState extends State<TrainingsPage> {
     Function()? onFirstButtonTap,
   }) {
     AddTrainingForm(
+            title: LocaleKeys.enterTrainingAndDay.tr(),
             firstButtonText: firstButtonText,
             onFirstButtonTap: onFirstButtonTap,
             titleController: _titleController,

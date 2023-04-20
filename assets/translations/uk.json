@@ -1,0 +1,25 @@
+{
+    "trainingDiary": "Щоденник тренувань",
+    "settings": "Налаштування",
+    "change": "Змінити",
+    "delete":"Видалити",
+    "enterTrainingAndDay": "Введіть назву тренування та день",
+    "name": "Назва",
+    "day": "День тижня",
+    "add":"Додати",
+    "clear": "Очистити",
+    "resetStatus": "Скинути статус",
+    "enterExercise": "Введіть назву вправи",
+    "weight":"Вага",
+    "time": "Час",
+    "sets":"Підходи",
+    "reps": "Повторення",
+    "description": "Опис",
+    "chooseLanguage":"Виберіть мову",
+    "addTraining": "Додати тренування",
+    "addExercise": "Додати вправу"
+
+
+
+
+  }

@@ -1,0 +1,22 @@
+{
+    "trainingDiary": "Training Diary",
+    "settings": "Settings",
+    "change": "Change",
+    "delete":"Delete",
+    "enterTrainingAndDay": "Enter the name of the workout and the day",
+    "name": "Name",
+    "day": "Weekday",
+    "add":"Add",
+    "clear": "Clear",
+    "resetStatus": "Reset status",
+    "enterExercise": "Enter the name of the exercise",
+    "weight":"Weight",
+    "time": "Time",
+    "sets":"Sets",
+    "reps": "Reps",
+    "description": "Description",
+    "chooseLanguage":"Choose language",
+    "addTraining": "Add workout",
+    "addExercise": "Add exercise"
+
+  }

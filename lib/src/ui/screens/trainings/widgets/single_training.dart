@@ -1,5 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:training_diary/core/di/injection.dart';
+import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
+import 'package:training_diary/core/styles/theme/constants.dart';
+import 'package:training_diary/src/cubit/stopwatch_cubit/stopwatch_cubit.dart';
+import 'package:training_diary/src/data_sources/isar_db/isar.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../../core/navigation/router.gr.dart';
 import '../../../../cubit/trainings_cubit/trainings_cubit.dart'
@@ -32,6 +39,7 @@ class SingleTraining extends StatefulWidget {
 
 class _SingleTrainingState extends State<SingleTraining> {
   late final trainings_cubit.TrainingsCubit _trainingsCubit;
+  final StopwatchCubit _stopwatchCubit = StopwatchCubit(getIt<IsarDB>());
   @override
   void initState() {
     super.initState();
@@ -42,6 +50,7 @@ class _SingleTrainingState extends State<SingleTraining> {
   Widget build(BuildContext context) {
     final titleController = TextEditingController(text: widget.title);
     final weekDayController = TextEditingController(text: widget.weekDay);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Container(
@@ -50,16 +59,7 @@ class _SingleTrainingState extends State<SingleTraining> {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Color(0xff1f005c),
-                Color(0xff5b0060),
-                Color(0xff870160),
-                Color(0xffac255e),
-                Color(0xffca485c),
-                Color(0xffe16b5c),
-                Color(0xfff39060),
-                Color(0xffffb56b),
-              ],
+              colors: trainingColors,
             )),
         width: double.infinity,
         height: 150,
@@ -69,9 +69,14 @@ class _SingleTrainingState extends State<SingleTraining> {
             borderRadius: BorderRadius.circular(10),
             onTap: () {
               MainRouter()
-                  .push(
-                      ExercisesRoute(title: widget.title, index: widget.index))
-                  .then((value) => _trainingsCubit.fetchTrainings());
+                  .push(ExercisesRoute(
+                      stopwatchCubit: _stopwatchCubit,
+                      title: widget.title,
+                      index: widget.index,
+                      training: widget.training))
+                  .then(
+                    (value) => _trainingsCubit.fetchTrainings(),
+                  );
             },
             child: Padding(
               padding: const EdgeInsets.all(15.0),
@@ -100,7 +105,7 @@ class _SingleTrainingState extends State<SingleTraining> {
           child: Text(
             widget.title,
             style: const TextStyle(fontSize: 24),
-            maxLines: 3,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -108,13 +113,13 @@ class _SingleTrainingState extends State<SingleTraining> {
           itemBuilder: (BuildContext context) {
             return [
               _popUpMenuItem(
-                value: 'Изменить',
+                value: LocaleKeys.change.tr(),
                 onTap: () {
                   widget.onChangeTapped?.call();
                 },
               ),
               _popUpMenuItem(
-                value: 'Удалить',
+                value: LocaleKeys.delete.tr(),
                 onTap: () {
                   widget.onDeleteTapped?.call();
                 },
@@ -140,15 +145,25 @@ class _SingleTrainingState extends State<SingleTraining> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(widget.weekDay),
+        Expanded(
+          child: Text(
+            widget.weekDay,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
         Row(
           children: [
             Text('${widget.exercises.length}',
-                style: const TextStyle(fontSize: 26)),
+                style: const TextStyle(
+                  fontSize: 26,
+                )),
             const SizedBox(
               width: 5,
             ),
-            const Icon(Icons.fitness_center),
+            const Icon(
+              Icons.fitness_center,
+            ),
           ],
         ),
       ],

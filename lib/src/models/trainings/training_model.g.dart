@@ -23,13 +23,23 @@ const TrainingSchema = CollectionSchema(
       type: IsarType.objectList,
       target: r'Exercise',
     ),
-    r'title': PropertySchema(
+    r'isTrainingStarted': PropertySchema(
       id: 1,
+      name: r'isTrainingStarted',
+      type: IsarType.bool,
+    ),
+    r'savedDataTime': PropertySchema(
+      id: 2,
+      name: r'savedDataTime',
+      type: IsarType.dateTime,
+    ),
+    r'title': PropertySchema(
+      id: 3,
       name: r'title',
       type: IsarType.string,
     ),
     r'weekDay': PropertySchema(
-      id: 2,
+      id: 4,
       name: r'weekDay',
       type: IsarType.string,
     )
@@ -89,8 +99,10 @@ void _trainingSerialize(
     ExerciseSchema.serialize,
     object.exercises,
   );
-  writer.writeString(offsets[1], object.title);
-  writer.writeString(offsets[2], object.weekDay);
+  writer.writeBool(offsets[1], object.isTrainingStarted);
+  writer.writeDateTime(offsets[2], object.savedDataTime);
+  writer.writeString(offsets[3], object.title);
+  writer.writeString(offsets[4], object.weekDay);
 }
 
 Training _trainingDeserialize(
@@ -100,8 +112,8 @@ Training _trainingDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Training(
-    reader.readStringOrNull(offsets[1]),
-    reader.readStringOrNull(offsets[2]),
+    reader.readStringOrNull(offsets[3]),
+    reader.readStringOrNull(offsets[4]),
     reader.readObjectList<Exercise>(
           offsets[0],
           ExerciseSchema.deserialize,
@@ -111,6 +123,8 @@ Training _trainingDeserialize(
         [],
   );
   object.id = id;
+  object.isTrainingStarted = reader.readBoolOrNull(offsets[1]);
+  object.savedDataTime = reader.readDateTimeOrNull(offsets[2]);
   return object;
 }
 
@@ -130,8 +144,12 @@ P _trainingDeserializeProp<P>(
           ) ??
           []) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     case 2:
+      return (reader.readDateTimeOrNull(offset)) as P;
+    case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -359,6 +377,106 @@ extension TrainingQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition>
+      isTrainingStartedIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isTrainingStarted',
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition>
+      isTrainingStartedIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isTrainingStarted',
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition>
+      isTrainingStartedEqualTo(bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isTrainingStarted',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition>
+      savedDataTimeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'savedDataTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition>
+      savedDataTimeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'savedDataTime',
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition> savedDataTimeEqualTo(
+      DateTime? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'savedDataTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition>
+      savedDataTimeGreaterThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'savedDataTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition> savedDataTimeLessThan(
+    DateTime? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'savedDataTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterFilterCondition> savedDataTimeBetween(
+    DateTime? lower,
+    DateTime? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'savedDataTime',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -674,6 +792,30 @@ extension TrainingQueryLinks
     on QueryBuilder<Training, Training, QFilterCondition> {}
 
 extension TrainingQuerySortBy on QueryBuilder<Training, Training, QSortBy> {
+  QueryBuilder<Training, Training, QAfterSortBy> sortByIsTrainingStarted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isTrainingStarted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterSortBy> sortByIsTrainingStartedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isTrainingStarted', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterSortBy> sortBySavedDataTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'savedDataTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterSortBy> sortBySavedDataTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'savedDataTime', Sort.desc);
+    });
+  }
+
   QueryBuilder<Training, Training, QAfterSortBy> sortByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -713,6 +855,30 @@ extension TrainingQuerySortThenBy
     });
   }
 
+  QueryBuilder<Training, Training, QAfterSortBy> thenByIsTrainingStarted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isTrainingStarted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterSortBy> thenByIsTrainingStartedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isTrainingStarted', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterSortBy> thenBySavedDataTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'savedDataTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Training, Training, QAfterSortBy> thenBySavedDataTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'savedDataTime', Sort.desc);
+    });
+  }
+
   QueryBuilder<Training, Training, QAfterSortBy> thenByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -740,6 +906,18 @@ extension TrainingQuerySortThenBy
 
 extension TrainingQueryWhereDistinct
     on QueryBuilder<Training, Training, QDistinct> {
+  QueryBuilder<Training, Training, QDistinct> distinctByIsTrainingStarted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isTrainingStarted');
+    });
+  }
+
+  QueryBuilder<Training, Training, QDistinct> distinctBySavedDataTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'savedDataTime');
+    });
+  }
+
   QueryBuilder<Training, Training, QDistinct> distinctByTitle(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -766,6 +944,18 @@ extension TrainingQueryProperty
   QueryBuilder<Training, List<Exercise>, QQueryOperations> exercisesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'exercises');
+    });
+  }
+
+  QueryBuilder<Training, bool?, QQueryOperations> isTrainingStartedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isTrainingStarted');
+    });
+  }
+
+  QueryBuilder<Training, DateTime?, QQueryOperations> savedDataTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'savedDataTime');
     });
   }
 

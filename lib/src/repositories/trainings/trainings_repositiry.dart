@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:training_diary/src/data_sources/provider/isar_provider.dart';
+import 'package:training_diary/src/data_sources/isar_db/isar.dart';
 
-import '../../../core/navigation/main_router.dart';
 import '../../models/trainings/training_model.dart';
 
 abstract class TrainingsRepository {
@@ -11,23 +9,21 @@ abstract class TrainingsRepository {
 }
 
 class TrainingsRepositoryImpl extends TrainingsRepository {
-  final IsarProvider isarProvider;
+  final IsarDB isarDB;
 
-  TrainingsRepositoryImpl(this.isarProvider);
+  TrainingsRepositoryImpl(this.isarDB);
   @override
   void deleteTraining(Training training) {
-    isarProvider.deleteTraining(training);
+    isarDB.deleteTraining(training);
   }
 
   @override
   void renameTraining(Training training) {
-    isarProvider.editTraining(training);
+    isarDB.editTraining(training);
   }
 
   @override
   void saveTraining(Training training) {
-    // MainRouter().pop(_controller.text);
-    isarProvider.addTraining(training);
-    // _controller.clear();
+    isarDB.addTraining(training);
   }
 }

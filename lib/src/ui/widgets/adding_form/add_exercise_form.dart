@@ -1,4 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
+import 'package:training_diary/src/ui/widgets/buttons/add_button.dart';
+import 'package:training_diary/src/ui/widgets/buttons/clear_button.dart';
+import 'package:training_diary/src/ui/widgets/text_fields/exercise_add_text_field.dart';
 
 class AddExerciseForm {
   AddExerciseForm({
@@ -28,58 +33,57 @@ class AddExerciseForm {
   final String? firstButtonText;
   final void Function()? onFirstButtonTap;
   final void Function() onSecondButtonTap;
-  // final TextEditingController weightController;
-  // final TextEditingController timeController;
-  // final TextEditingController setsController;
-  // final TextEditingController repsController;
-  // final TextEditingController descriptionController;
 
   Future<String?> openDialog() => showDialog<String>(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(title),
+          scrollable: true,
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+          ),
           content: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TextField(
-                autofocus: true,
-                decoration: InputDecoration(hintText: 'Введите название'),
+              ExersiceAddTextField(
+                hintText: LocaleKeys.name.tr(),
                 controller: titleController,
               ),
-              TextField(
-                autofocus: true,
-                decoration: InputDecoration(hintText: 'Введите вес'),
+              ExersiceAddTextField(
+                hintText: LocaleKeys.weight.tr(),
                 controller: weightController,
               ),
-              TextField(
-                autofocus: true,
-                decoration: InputDecoration(hintText: 'Введите время'),
+              ExersiceAddTextField(
+                hintText: LocaleKeys.time.tr(),
                 controller: timeController,
               ),
-              TextField(
-                autofocus: true,
-                decoration: InputDecoration(hintText: 'Введите подходы'),
+              ExersiceAddTextField(
+                hintText: LocaleKeys.sets.tr(),
                 controller: setsController,
               ),
-              TextField(
-                autofocus: true,
-                decoration: InputDecoration(hintText: 'Введите повторения'),
+              ExersiceAddTextField(
+                hintText: LocaleKeys.reps.tr(),
                 controller: repsController,
               ),
-              TextField(
-                autofocus: true,
-                decoration: InputDecoration(hintText: 'Введите описание'),
+              ExersiceAddTextField(
+                hintText: LocaleKeys.description.tr(),
                 controller: descriptionController,
               ),
             ],
           ),
           actions: [
-            TextButton(
-              onPressed: onFirstButtonTap,
-              child: Text(firstButtonText ?? ''),
-            ),
-            TextButton(
-              onPressed: onSecondButtonTap,
-              child: Text(secondButtonText),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ClearButton(
+                  onTap: onFirstButtonTap,
+                  text: firstButtonText ?? '',
+                ),
+                AddButton(
+                  onTap: onSecondButtonTap,
+                  text: secondButtonText,
+                ),
+              ],
             ),
           ],
         ),

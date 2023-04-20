@@ -19,6 +19,8 @@ mixin _$ExercisesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
     required TResult Function() startWorkout,
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
@@ -29,6 +31,8 @@ mixin _$ExercisesState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
     TResult? Function()? startWorkout,
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
@@ -39,6 +43,8 @@ mixin _$ExercisesState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
     TResult Function()? startWorkout,
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
@@ -50,6 +56,9 @@ mixin _$ExercisesState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
     required TResult Function(StartWorkout value) startWorkout,
     required TResult Function(StopWorkout value) stopWorkout,
     required TResult Function(Error value) error,
@@ -60,6 +69,8 @@ mixin _$ExercisesState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
     TResult? Function(StartWorkout value)? startWorkout,
     TResult? Function(StopWorkout value)? stopWorkout,
     TResult? Function(Error value)? error,
@@ -70,6 +81,8 @@ mixin _$ExercisesState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
     TResult Function(StartWorkout value)? startWorkout,
     TResult Function(StopWorkout value)? stopWorkout,
     TResult Function(Error value)? error,
@@ -135,6 +148,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
     required TResult Function() startWorkout,
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
@@ -148,6 +163,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
     TResult? Function()? startWorkout,
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
@@ -161,6 +178,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
     TResult Function()? startWorkout,
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
@@ -178,6 +197,9 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
     required TResult Function(StartWorkout value) startWorkout,
     required TResult Function(StopWorkout value) stopWorkout,
     required TResult Function(Error value) error,
@@ -191,6 +213,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
     TResult? Function(StartWorkout value)? startWorkout,
     TResult? Function(StopWorkout value)? stopWorkout,
     TResult? Function(Error value)? error,
@@ -204,6 +228,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
     TResult Function(StartWorkout value)? startWorkout,
     TResult Function(StopWorkout value)? stopWorkout,
     TResult Function(Error value)? error,
@@ -220,6 +246,323 @@ class _$Loading implements Loading {
 
 abstract class Loading implements ExercisesState {
   const factory Loading() = _$Loading;
+}
+
+/// @nodoc
+abstract class _$$LoadingStartStopTrainingCopyWith<$Res> {
+  factory _$$LoadingStartStopTrainingCopyWith(_$LoadingStartStopTraining value,
+          $Res Function(_$LoadingStartStopTraining) then) =
+      __$$LoadingStartStopTrainingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadingStartStopTrainingCopyWithImpl<$Res>
+    extends _$ExercisesStateCopyWithImpl<$Res, _$LoadingStartStopTraining>
+    implements _$$LoadingStartStopTrainingCopyWith<$Res> {
+  __$$LoadingStartStopTrainingCopyWithImpl(_$LoadingStartStopTraining _value,
+      $Res Function(_$LoadingStartStopTraining) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LoadingStartStopTraining implements LoadingStartStopTraining {
+  const _$LoadingStartStopTraining();
+
+  @override
+  String toString() {
+    return 'ExercisesState.loadingStartStopTraining()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoadingStartStopTraining);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
+    required TResult Function() startWorkout,
+    required TResult Function() stopWorkout,
+    required TResult Function(String message) error,
+    required TResult Function() emtyList,
+    required TResult Function(List<Exercise> exercises) loadedList,
+  }) {
+    return loadingStartStopTraining();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
+    TResult? Function()? startWorkout,
+    TResult? Function()? stopWorkout,
+    TResult? Function(String message)? error,
+    TResult? Function()? emtyList,
+    TResult? Function(List<Exercise> exercises)? loadedList,
+  }) {
+    return loadingStartStopTraining?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
+    TResult Function()? startWorkout,
+    TResult Function()? stopWorkout,
+    TResult Function(String message)? error,
+    TResult Function()? emtyList,
+    TResult Function(List<Exercise> exercises)? loadedList,
+    required TResult orElse(),
+  }) {
+    if (loadingStartStopTraining != null) {
+      return loadingStartStopTraining();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
+    required TResult Function(StartWorkout value) startWorkout,
+    required TResult Function(StopWorkout value) stopWorkout,
+    required TResult Function(Error value) error,
+    required TResult Function(EmptyList value) emtyList,
+    required TResult Function(LoadedList value) loadedList,
+  }) {
+    return loadingStartStopTraining(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
+    TResult? Function(StartWorkout value)? startWorkout,
+    TResult? Function(StopWorkout value)? stopWorkout,
+    TResult? Function(Error value)? error,
+    TResult? Function(EmptyList value)? emtyList,
+    TResult? Function(LoadedList value)? loadedList,
+  }) {
+    return loadingStartStopTraining?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
+    TResult Function(StartWorkout value)? startWorkout,
+    TResult Function(StopWorkout value)? stopWorkout,
+    TResult Function(Error value)? error,
+    TResult Function(EmptyList value)? emtyList,
+    TResult Function(LoadedList value)? loadedList,
+    required TResult orElse(),
+  }) {
+    if (loadingStartStopTraining != null) {
+      return loadingStartStopTraining(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadingStartStopTraining implements ExercisesState {
+  const factory LoadingStartStopTraining() = _$LoadingStartStopTraining;
+}
+
+/// @nodoc
+abstract class _$$ReorderableCopyWith<$Res> {
+  factory _$$ReorderableCopyWith(
+          _$Reorderable value, $Res Function(_$Reorderable) then) =
+      __$$ReorderableCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Exercise> exercises});
+}
+
+/// @nodoc
+class __$$ReorderableCopyWithImpl<$Res>
+    extends _$ExercisesStateCopyWithImpl<$Res, _$Reorderable>
+    implements _$$ReorderableCopyWith<$Res> {
+  __$$ReorderableCopyWithImpl(
+      _$Reorderable _value, $Res Function(_$Reorderable) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? exercises = null,
+  }) {
+    return _then(_$Reorderable(
+      null == exercises
+          ? _value._exercises
+          : exercises // ignore: cast_nullable_to_non_nullable
+              as List<Exercise>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Reorderable implements Reorderable {
+  const _$Reorderable(final List<Exercise> exercises) : _exercises = exercises;
+
+  final List<Exercise> _exercises;
+  @override
+  List<Exercise> get exercises {
+    if (_exercises is EqualUnmodifiableListView) return _exercises;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_exercises);
+  }
+
+  @override
+  String toString() {
+    return 'ExercisesState.reorderable(exercises: $exercises)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Reorderable &&
+            const DeepCollectionEquality()
+                .equals(other._exercises, _exercises));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_exercises));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReorderableCopyWith<_$Reorderable> get copyWith =>
+      __$$ReorderableCopyWithImpl<_$Reorderable>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
+    required TResult Function() startWorkout,
+    required TResult Function() stopWorkout,
+    required TResult Function(String message) error,
+    required TResult Function() emtyList,
+    required TResult Function(List<Exercise> exercises) loadedList,
+  }) {
+    return reorderable(exercises);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
+    TResult? Function()? startWorkout,
+    TResult? Function()? stopWorkout,
+    TResult? Function(String message)? error,
+    TResult? Function()? emtyList,
+    TResult? Function(List<Exercise> exercises)? loadedList,
+  }) {
+    return reorderable?.call(exercises);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
+    TResult Function()? startWorkout,
+    TResult Function()? stopWorkout,
+    TResult Function(String message)? error,
+    TResult Function()? emtyList,
+    TResult Function(List<Exercise> exercises)? loadedList,
+    required TResult orElse(),
+  }) {
+    if (reorderable != null) {
+      return reorderable(exercises);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
+    required TResult Function(StartWorkout value) startWorkout,
+    required TResult Function(StopWorkout value) stopWorkout,
+    required TResult Function(Error value) error,
+    required TResult Function(EmptyList value) emtyList,
+    required TResult Function(LoadedList value) loadedList,
+  }) {
+    return reorderable(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
+    TResult? Function(StartWorkout value)? startWorkout,
+    TResult? Function(StopWorkout value)? stopWorkout,
+    TResult? Function(Error value)? error,
+    TResult? Function(EmptyList value)? emtyList,
+    TResult? Function(LoadedList value)? loadedList,
+  }) {
+    return reorderable?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
+    TResult Function(StartWorkout value)? startWorkout,
+    TResult Function(StopWorkout value)? stopWorkout,
+    TResult Function(Error value)? error,
+    TResult Function(EmptyList value)? emtyList,
+    TResult Function(LoadedList value)? loadedList,
+    required TResult orElse(),
+  }) {
+    if (reorderable != null) {
+      return reorderable(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Reorderable implements ExercisesState {
+  const factory Reorderable(final List<Exercise> exercises) = _$Reorderable;
+
+  List<Exercise> get exercises;
+  @JsonKey(ignore: true)
+  _$$ReorderableCopyWith<_$Reorderable> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -261,6 +604,8 @@ class _$StartWorkout implements StartWorkout {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
     required TResult Function() startWorkout,
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
@@ -274,6 +619,8 @@ class _$StartWorkout implements StartWorkout {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
     TResult? Function()? startWorkout,
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
@@ -287,6 +634,8 @@ class _$StartWorkout implements StartWorkout {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
     TResult Function()? startWorkout,
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
@@ -304,6 +653,9 @@ class _$StartWorkout implements StartWorkout {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
     required TResult Function(StartWorkout value) startWorkout,
     required TResult Function(StopWorkout value) stopWorkout,
     required TResult Function(Error value) error,
@@ -317,6 +669,8 @@ class _$StartWorkout implements StartWorkout {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
     TResult? Function(StartWorkout value)? startWorkout,
     TResult? Function(StopWorkout value)? stopWorkout,
     TResult? Function(Error value)? error,
@@ -330,6 +684,8 @@ class _$StartWorkout implements StartWorkout {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
     TResult Function(StartWorkout value)? startWorkout,
     TResult Function(StopWorkout value)? stopWorkout,
     TResult Function(Error value)? error,
@@ -387,6 +743,8 @@ class _$StopWorkout implements StopWorkout {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
     required TResult Function() startWorkout,
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
@@ -400,6 +758,8 @@ class _$StopWorkout implements StopWorkout {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
     TResult? Function()? startWorkout,
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
@@ -413,6 +773,8 @@ class _$StopWorkout implements StopWorkout {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
     TResult Function()? startWorkout,
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
@@ -430,6 +792,9 @@ class _$StopWorkout implements StopWorkout {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
     required TResult Function(StartWorkout value) startWorkout,
     required TResult Function(StopWorkout value) stopWorkout,
     required TResult Function(Error value) error,
@@ -443,6 +808,8 @@ class _$StopWorkout implements StopWorkout {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
     TResult? Function(StartWorkout value)? startWorkout,
     TResult? Function(StopWorkout value)? stopWorkout,
     TResult? Function(Error value)? error,
@@ -456,6 +823,8 @@ class _$StopWorkout implements StopWorkout {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
     TResult Function(StartWorkout value)? startWorkout,
     TResult Function(StopWorkout value)? stopWorkout,
     TResult Function(Error value)? error,
@@ -537,6 +906,8 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
     required TResult Function() startWorkout,
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
@@ -550,6 +921,8 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
     TResult? Function()? startWorkout,
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
@@ -563,6 +936,8 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
     TResult Function()? startWorkout,
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
@@ -580,6 +955,9 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
     required TResult Function(StartWorkout value) startWorkout,
     required TResult Function(StopWorkout value) stopWorkout,
     required TResult Function(Error value) error,
@@ -593,6 +971,8 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
     TResult? Function(StartWorkout value)? startWorkout,
     TResult? Function(StopWorkout value)? stopWorkout,
     TResult? Function(Error value)? error,
@@ -606,6 +986,8 @@ class _$Error implements Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
     TResult Function(StartWorkout value)? startWorkout,
     TResult Function(StopWorkout value)? stopWorkout,
     TResult Function(Error value)? error,
@@ -667,6 +1049,8 @@ class _$EmptyList implements EmptyList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
     required TResult Function() startWorkout,
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
@@ -680,6 +1064,8 @@ class _$EmptyList implements EmptyList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
     TResult? Function()? startWorkout,
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
@@ -693,6 +1079,8 @@ class _$EmptyList implements EmptyList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
     TResult Function()? startWorkout,
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
@@ -710,6 +1098,9 @@ class _$EmptyList implements EmptyList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
     required TResult Function(StartWorkout value) startWorkout,
     required TResult Function(StopWorkout value) stopWorkout,
     required TResult Function(Error value) error,
@@ -723,6 +1114,8 @@ class _$EmptyList implements EmptyList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
     TResult? Function(StartWorkout value)? startWorkout,
     TResult? Function(StopWorkout value)? stopWorkout,
     TResult? Function(Error value)? error,
@@ -736,6 +1129,8 @@ class _$EmptyList implements EmptyList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
     TResult Function(StartWorkout value)? startWorkout,
     TResult Function(StopWorkout value)? stopWorkout,
     TResult Function(Error value)? error,
@@ -826,6 +1221,8 @@ class _$LoadedList implements LoadedList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
+    required TResult Function() loadingStartStopTraining,
+    required TResult Function(List<Exercise> exercises) reorderable,
     required TResult Function() startWorkout,
     required TResult Function() stopWorkout,
     required TResult Function(String message) error,
@@ -839,6 +1236,8 @@ class _$LoadedList implements LoadedList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
+    TResult? Function()? loadingStartStopTraining,
+    TResult? Function(List<Exercise> exercises)? reorderable,
     TResult? Function()? startWorkout,
     TResult? Function()? stopWorkout,
     TResult? Function(String message)? error,
@@ -852,6 +1251,8 @@ class _$LoadedList implements LoadedList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
+    TResult Function()? loadingStartStopTraining,
+    TResult Function(List<Exercise> exercises)? reorderable,
     TResult Function()? startWorkout,
     TResult Function()? stopWorkout,
     TResult Function(String message)? error,
@@ -869,6 +1270,9 @@ class _$LoadedList implements LoadedList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Loading value) loading,
+    required TResult Function(LoadingStartStopTraining value)
+        loadingStartStopTraining,
+    required TResult Function(Reorderable value) reorderable,
     required TResult Function(StartWorkout value) startWorkout,
     required TResult Function(StopWorkout value) stopWorkout,
     required TResult Function(Error value) error,
@@ -882,6 +1286,8 @@ class _$LoadedList implements LoadedList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Loading value)? loading,
+    TResult? Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult? Function(Reorderable value)? reorderable,
     TResult? Function(StartWorkout value)? startWorkout,
     TResult? Function(StopWorkout value)? stopWorkout,
     TResult? Function(Error value)? error,
@@ -895,6 +1301,8 @@ class _$LoadedList implements LoadedList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Loading value)? loading,
+    TResult Function(LoadingStartStopTraining value)? loadingStartStopTraining,
+    TResult Function(Reorderable value)? reorderable,
     TResult Function(StartWorkout value)? startWorkout,
     TResult Function(StopWorkout value)? stopWorkout,
     TResult Function(Error value)? error,

@@ -1,10 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/core/navigation/main_router.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
-import '../../../data_sources/provider/isar_provider.dart';
+import '../../../data_sources/isar_db/isar.dart';
 import '../../../models/trainings/training_model.dart';
 import '../adding_form/add_exercise_form.dart';
 
@@ -64,7 +66,7 @@ class _ExercisesAppBarState extends State<ExercisesAppBar> {
   @override
   Widget build(BuildContext context) {
     Training training =
-        context.watch<IsarProvider>().trainings.elementAt(widget.index);
+        context.watch<IsarDB>().trainings.elementAt(widget.index);
     return AppBar(
       centerTitle: true,
       actions: [
@@ -75,7 +77,7 @@ class _ExercisesAppBarState extends State<ExercisesAppBar> {
             onPressed: () {
               showAddingForm(
                   onFirstButtonTap: _clearTextField,
-                  firstButtonText: 'Очистить',
+                  firstButtonText: LocaleKeys.clear.tr(),
                   onSecondButtonTap: () {
                     _addExercise(
                         Exercise(
@@ -90,7 +92,7 @@ class _ExercisesAppBarState extends State<ExercisesAppBar> {
                         training,
                         widget.index);
                   },
-                  secondButtonText: 'Добавить');
+                  secondButtonText: LocaleKeys.add.tr());
             },
             icon: const Icon(Icons.add),
           ),
@@ -112,7 +114,7 @@ class _ExercisesAppBarState extends State<ExercisesAppBar> {
       repsController: _repsController,
       setsController: _setsController,
       timeController: _timeController,
-      title: 'Введите название упражнения',
+      title: LocaleKeys.enterExercise.tr(),
       titleController: _titleController,
       weightController: _weightController,
       firstButtonText: firstButtonText,

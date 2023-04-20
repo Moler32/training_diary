@@ -9,6 +9,8 @@ class Training {
   String? title;
   String? weekDay;
   List<Exercise> exercises;
+  DateTime? savedDataTime;
+  bool? isTrainingStarted;
 }
 
 @embedded
