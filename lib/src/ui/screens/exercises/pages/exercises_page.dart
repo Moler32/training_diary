@@ -2,15 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:training_diary/core/di/injection.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
-import 'package:training_diary/src/ui/screens/exercises/widgets/divider.dart';
 import 'package:training_diary/src/ui/widgets/mixins/show_exercise_adding_form.dart';
+import 'package:training_diary/src/ui/widgets/stopwatch/stopwatch.dart';
+import 'package:training_diary/src/ui/widgets/stopwatch/stopwatch_model.dart';
 import '../../../../../core/navigation/main_router.dart';
 import '../../../../cubit/exercises_cubit/exercises_cubit.dart';
-import '../../../../cubit/stopwatch_cubit/stopwatch_cubit.dart';
 import '../../../../data_sources/isar_db/training_isar.dart';
 import '../../../../models/trainings/training_model.dart';
 import '../../../widgets/app_bar/exercises_app_bar.dart';
@@ -23,13 +24,11 @@ class ExercisesPage extends StatefulWidget {
     this.title,
     required this.index,
     required this.training,
-    required this.stopwatchCubit,
   });
 
   final String? title;
   final int index;
   final Training training;
-  final StopwatchCubit stopwatchCubit;
 
   @override
   State<ExercisesPage> createState() => _ExercisesPageState();
@@ -74,108 +73,117 @@ class _ExercisesPageState extends State<ExercisesPage>
   Widget build(BuildContext context) {
     final training = getIt<IsarDB>().trainings.elementAt(widget.index);
 
-    return Scaffold(
-      appBar: ExercisesAppBar(
-        title: widget.title,
-        index: widget.index,
-        training: training,
-      ),
-      body: BlocConsumer<ExercisesCubit, ExercisesState>(
-        bloc: _exercisesCubit,
-        listener: (context, state) {
-          state.maybeWhen(
-            error: (message) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(message),
-                ),
-              );
-            },
-            orElse: () {},
-          );
-        },
-        buildWhen: (prev, curr) {
-          return curr is Error ||
-              curr is LoadedList ||
-              curr is EmptyList ||
-              curr is Loading;
-        },
-        builder: (context, state) {
-          return state.maybeWhen(
-            emtyList: () {
-              return Column(
-                children: [
-                  Expanded(
-                    child: EmptyListAddButton(
-                      title: LocaleKeys.addExercise.tr(),
-                      onPressed: () {
-                        showAddingForm(
-                          context: context,
-                          descriptionController: _descriptionController,
-                          setsController: _setsController,
-                          repsController: _repsController,
-                          timeController: _timeController,
-                          titleController: _titleController,
-                          weightController: _weightController,
-                          onFirstButtonTap: _clearTextField,
-                          firstButtonText: LocaleKeys.clear.tr(),
-                          onSecondButtonTap: () {
-                            _addExercise(
-                                Exercise(
-                                  title: _titleController.text,
-                                  sets: _setsController.text,
-                                  reps: _repsController.text,
-                                  weight: _weightController.text,
-                                  time: _timeController.text,
-                                  description: _descriptionController.text,
-                                  isComlete: false,
-                                ),
-                                training,
-                                widget.index);
-                          },
-                          secondButtonText: LocaleKeys.add.tr(),
-                        );
-                      },
+    return ChangeNotifierProvider(
+      create: (context) => StopWatchModel(context),
+      child: Consumer<StopWatchModel>(
+        builder: (context, stopWatchModel, child) => Scaffold(
+          appBar: ExercisesAppBar(
+            stopWatchModel: stopWatchModel,
+            title: widget.title,
+            index: widget.index,
+            training: training,
+          ),
+          body: BlocConsumer<ExercisesCubit, ExercisesState>(
+            bloc: _exercisesCubit,
+            listener: (context, state) {
+              state.maybeWhen(
+                error: (message) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(message),
                     ),
-                  ),
-                ],
+                  );
+                },
+                orElse: () {},
               );
             },
-            error: (String message) {
-              return Center(
-                child: Text(message),
-              );
+            buildWhen: (prev, curr) {
+              return curr is Error ||
+                  curr is LoadedList ||
+                  curr is EmptyList ||
+                  curr is Loading;
             },
-            loading: () {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-            loadedList: (exercises) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      width: double.infinity,
-                      child: TextButton(
-                        onPressed: () => _clearExersiceStatus(),
-                        child: Text(
-                          LocaleKeys.resetStatus.tr(),
+            builder: (context, state) {
+              return state.maybeWhen(
+                emtyList: () {
+                  return Column(
+                    children: [
+                      Expanded(
+                        child: EmptyListAddButton(
+                          title: LocaleKeys.addExercise.tr(),
+                          onPressed: () {
+                            showAddingForm(
+                              context: context,
+                              descriptionController: _descriptionController,
+                              setsController: _setsController,
+                              repsController: _repsController,
+                              timeController: _timeController,
+                              titleController: _titleController,
+                              weightController: _weightController,
+                              onFirstButtonTap: () => _clearTextField(),
+                              firstButtonText: LocaleKeys.clear.tr(),
+                              onSecondButtonTap: () {
+                                _addExercise(
+                                    Exercise(
+                                      title: _titleController.text,
+                                      sets: _setsController.text,
+                                      reps: _repsController.text,
+                                      weight: _weightController.text,
+                                      time: _timeController.text,
+                                      description: _descriptionController.text,
+                                      isComlete: false,
+                                    ),
+                                    training,
+                                    widget.index);
+                              },
+                              secondButtonText: LocaleKeys.add.tr(),
+                            );
+                          },
                         ),
                       ),
-                    ),
-                  ),
-                  _buildExercisesList(exercises, training),
-                ],
+                    ],
+                  );
+                },
+                error: (String message) {
+                  return Center(
+                    child: Text(message),
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+                loadedList: (exercises) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: () => _clearExersiceStatus(),
+                            child: Text(
+                              LocaleKeys.resetStatus.tr(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      _buildExercisesList(exercises, training),
+                      StopWatch(
+                        stopWatchModel: stopWatchModel,
+                      ),
+                    ],
+                  );
+                },
+                orElse: () {
+                  return Container();
+                },
               );
             },
-            orElse: () {
-              return Container();
-            },
-          );
-        },
+          ),
+        ),
       ),
     );
   }
@@ -232,13 +240,16 @@ class _ExercisesPageState extends State<ExercisesPage>
                         weightController: _weightController,
                         firstButtonText: LocaleKeys.clear.tr(),
                         secondButtonText: LocaleKeys.change.tr(),
-                        onFirstButtonTap: _clearTextField,
+                        onFirstButtonTap: () => _clearTextField(),
                         onSecondButtonTap: () => _editExercise(training, index),
                       );
                     });
                   },
                 ),
-                if (index < exercises.length - 1) const CustomDivider(),
+                // if (index < exercises.length - 1) const CustomDivider(),
+                SizedBox(
+                  height: 15,
+                ),
               ],
             );
           },
@@ -267,6 +278,10 @@ class _ExercisesPageState extends State<ExercisesPage>
     MainRouter().pop();
     if (_titleController.text.isNotEmpty) {
       _exercisesCubit.addExercise(exercise, training, index);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(LocaleKeys.exerciseAdded
+            .tr(args: ["\"${_titleController.text}\""])),
+      ));
     }
     _clearTextField();
   }
@@ -285,9 +300,17 @@ class _ExercisesPageState extends State<ExercisesPage>
     exersise.weight = _weightController.text;
     exersise.description = _descriptionController.text;
     _exercisesCubit.editExersice(training, widget.index);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(LocaleKeys.exerciseChanged
+          .tr(args: ["\"${_titleController.text}\""])),
+    ));
   }
 
   void _deleteExercise(Training training, Exercise exercise) {
     _exercisesCubit.deleteExercise(training, exercise, widget.index);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content:
+          Text(LocaleKeys.exerciseDeleted.tr(args: ["\"${exercise.title}\""])),
+    ));
   }
 }

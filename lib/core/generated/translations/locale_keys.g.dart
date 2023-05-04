@@ -20,5 +20,14 @@ abstract class  LocaleKeys {
   static const chooseLanguage = 'chooseLanguage';
   static const addTraining = 'addTraining';
   static const addExercise = 'addExercise';
+  static const workoutAdded = 'workoutAdded';
+  static const exerciseAdded = 'exerciseAdded';
+  static const workoutChanged = 'workoutChanged';
+  static const exerciseChanged = 'exerciseChanged';
+  static const workoutDeleted = 'workoutDeleted';
+  static const exerciseDeleted = 'exerciseDeleted';
+  static const stopStopWatch = 'stopStopWatch';
+  static const yes = 'yes';
+  static const no = 'no';
 
 }

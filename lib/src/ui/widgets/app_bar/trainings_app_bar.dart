@@ -112,9 +112,14 @@ class _TrainingsAppBarState extends State<TrainingsAppBar>
     MainRouter().pop();
     if (_titleController.text.isNotEmpty) {
       _trainingsCubit.addTraining(training);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(LocaleKeys.workoutAdded
+              .tr(args: ["\"${_titleController.text}\""])),
+        ),
+      );
     }
-    _titleController.clear();
-    _weekDayController.clear();
+    _clearTextField();
   }
 
   void _clearTextField() {

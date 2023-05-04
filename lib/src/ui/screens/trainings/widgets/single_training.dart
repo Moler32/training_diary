@@ -70,7 +70,6 @@ class _SingleTrainingState extends State<SingleTraining> {
             onTap: () {
               MainRouter()
                   .push(ExercisesRoute(
-                      stopwatchCubit: _stopwatchCubit,
                       title: widget.title,
                       index: widget.index,
                       training: widget.training))

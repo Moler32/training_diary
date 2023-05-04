@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
-import 'package:training_diary/src/ui/widgets/buttons/add_button.dart';
-import 'package:training_diary/src/ui/widgets/buttons/clear_button.dart';
+import 'package:training_diary/src/ui/widgets/buttons/positive_button.dart';
+import 'package:training_diary/src/ui/widgets/buttons/negative_button.dart';
 import 'package:training_diary/src/ui/widgets/text_fields/add_text_field.dart';
 
 class AddExerciseForm {
@@ -75,11 +75,11 @@ class AddExerciseForm {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ClearButton(
+                NegativeButton(
                   onTap: onFirstButtonTap,
                   text: firstButtonText ?? '',
                 ),
-                AddButton(
+                PositiveButton(
                   onTap: onSecondButtonTap,
                   text: secondButtonText,
                 ),

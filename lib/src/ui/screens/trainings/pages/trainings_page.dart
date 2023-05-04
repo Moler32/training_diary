@@ -74,23 +74,24 @@ class _TrainingsPageState extends State<TrainingsPage>
             },
             emptyList: () {
               return EmptyListAddButton(
-                title: LocaleKeys.addTraining.tr(),
-                onPressed: () => showAddingForm(
-                  weekDayController: _weekDayController,
-                  titleController: _titleController,
-                  context: context,
-                  firstButtonText: LocaleKeys.clear.tr(),
-                  secondButtonText: LocaleKeys.add.tr(),
-                  onFirstButtonTap: () => _clearTextField(),
-                  onSecondButtonTap: () => _addTraining(
-                    Training(
-                      _titleController.text,
-                      _weekDayController.text,
-                      [],
-                    ),
-                  ),
-                ),
-              );
+                  title: LocaleKeys.addTraining.tr(),
+                  onPressed: () {
+                    return showAddingForm(
+                      weekDayController: _weekDayController,
+                      titleController: _titleController,
+                      context: context,
+                      firstButtonText: LocaleKeys.clear.tr(),
+                      secondButtonText: LocaleKeys.add.tr(),
+                      onFirstButtonTap: () => _clearTextField(),
+                      onSecondButtonTap: () => _addTraining(
+                        Training(
+                          _titleController.text,
+                          _weekDayController.text,
+                          [],
+                        ),
+                      ),
+                    );
+                  });
             },
             error: (message) {
               return Center(
@@ -157,6 +158,12 @@ class _TrainingsPageState extends State<TrainingsPage>
     MainRouter().pop();
     if (_titleController.text.isNotEmpty) {
       _trainingsCubit.addTraining(training);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(LocaleKeys.workoutAdded
+              .tr(args: ["\"${_titleController.text}\""])),
+        ),
+      );
     }
     _clearTextField();
   }
@@ -166,11 +173,21 @@ class _TrainingsPageState extends State<TrainingsPage>
     training.title = _titleController.text;
     training.weekDay = _weekDayController.text;
     _trainingsCubit.renameTraining(training);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(LocaleKeys.workoutChanged
+            .tr(args: ["\"${_titleController.text}\""])),
+      ),
+    );
     _titleController.clear();
     _weekDayController.clear();
   }
 
   void _deleteTraining(Training training) {
     _trainingsCubit.deleteTraining(training);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content:
+          Text(LocaleKeys.workoutDeleted.tr(args: ["\"${training.title}\""])),
+    ));
   }
 }

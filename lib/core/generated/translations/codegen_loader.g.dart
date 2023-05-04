@@ -33,7 +33,16 @@ class CodegenLoader extends AssetLoader{
   "description": "Опис",
   "chooseLanguage": "Виберіть мову",
   "addTraining": "Додати тренування",
-  "addExercise": "Додати вправу"
+  "addExercise": "Додати вправу",
+  "workoutAdded": "Тренування {} додано",
+  "exerciseAdded": "Вправу {} додано",
+  "workoutChanged": "Тренування {} змінено",
+  "exerciseChanged": "Вправа {} змінена",
+  "workoutDeleted": "Тренування {} видалено",
+  "exerciseDeleted": "Вправу {} видалено",
+  "stopStopWatch": "Ви дійсно хочете зупинити секундомір?",
+  "yes": "Так",
+  "no": "Ні"
 };
 static const Map<String,dynamic> en = {
   "trainingDiary": "Training Diary",
@@ -54,7 +63,16 @@ static const Map<String,dynamic> en = {
   "description": "Description",
   "chooseLanguage": "Choose language",
   "addTraining": "Add workout",
-  "addExercise": "Add exercise"
+  "addExercise": "Add exercise",
+  "workoutAdded": "Workout {} added",
+  "exerciseAdded": "Exercise {} added",
+  "workoutChanged": "Workout {} changed",
+  "exerciseChanged": "Exercise {} changed",
+  "workoutDeleted": "Workout {} deleted",
+  "exerciseDeleted": "Exercise {} deleted",
+  "stopStopWatch": "Do you really want to stop the stopwatch?",
+  "yes": "Yes",
+  "no": "No"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"uk": uk, "en": en};
 }

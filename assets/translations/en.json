@@ -17,6 +17,14 @@
     "description": "Description",
     "chooseLanguage":"Choose language",
     "addTraining": "Add workout",
-    "addExercise": "Add exercise"
-
+    "addExercise": "Add exercise",
+    "workoutAdded": "Workout {} added",
+    "exerciseAdded": "Exercise {} added",
+    "workoutChanged": "Workout {} changed",
+    "exerciseChanged": "Exercise {} changed",
+    "workoutDeleted": "Workout {} deleted",
+    "exerciseDeleted": "Exercise {} deleted",
+    "stopStopWatch": "Do you really want to stop the stopwatch?",
+    "yes": "Yes",
+    "no": "No"
   }

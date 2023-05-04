@@ -122,7 +122,11 @@ class ExercisesCubit extends Cubit<ExercisesState> {
       training.exercises = list;
       await _exercisesRepository.deleteExercise(training);
       await _getExercises(trainingIndex);
-      emit(ExercisesState.loadedList(_exercises));
+      if (_exercises.isEmpty) {
+        emit(ExercisesState.emtyList());
+      } else {
+        emit(ExercisesState.loadedList(_exercises));
+      }
     } catch (e, st) {
       emit(ExercisesState.error(e.toString()));
       GetIt.I<Talker>().handle(e, st);

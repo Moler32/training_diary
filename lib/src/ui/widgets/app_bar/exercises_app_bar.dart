@@ -6,18 +6,22 @@ import 'package:training_diary/core/generated/translations/locale_keys.g.dart';
 import 'package:training_diary/core/navigation/main_router.dart';
 import 'package:training_diary/src/cubit/exercises_cubit/exercises_cubit.dart'
     as exercises_cubit;
+import 'package:training_diary/src/ui/widgets/buttons/negative_button.dart';
+import 'package:training_diary/src/ui/widgets/buttons/positive_button.dart';
 import 'package:training_diary/src/ui/widgets/mixins/show_exercise_adding_form.dart';
+import 'package:training_diary/src/ui/widgets/stopwatch/stopwatch_model.dart';
 import '../../../data_sources/isar_db/training_isar.dart';
 import '../../../models/trainings/training_model.dart';
 
 class ExercisesAppBar extends StatefulWidget implements PreferredSizeWidget {
-  ExercisesAppBar(
-      {super.key,
-      this.title,
-      this.height = 60,
-      this.training,
-      required this.index})
-      : preferredSize = Size.fromHeight(height);
+  ExercisesAppBar({
+    super.key,
+    this.title,
+    this.height = 60,
+    this.training,
+    required this.index,
+    required this.stopWatchModel,
+  }) : preferredSize = Size.fromHeight(height);
 
   @override
   final Size preferredSize;
@@ -25,6 +29,7 @@ class ExercisesAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final Training? training;
   final int index;
+  final StopWatchModel stopWatchModel;
 
   @override
   State<ExercisesAppBar> createState() => _ExercisesAppBarState();
@@ -68,45 +73,79 @@ class _ExercisesAppBarState extends State<ExercisesAppBar>
   Widget build(BuildContext context) {
     Training training =
         context.watch<IsarDB>().trainings.elementAt(widget.index);
-    return AppBar(
-      centerTitle: true,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: IconButton(
-            splashRadius: 30,
-            onPressed: () {
-              showAddingForm(
-                  context: context,
-                  descriptionController: _descriptionController,
-                  setsController: _setsController,
-                  repsController: _repsController,
-                  timeController: _timeController,
-                  titleController: _titleController,
-                  weightController: _weightController,
-                  onFirstButtonTap: _clearTextField,
-                  firstButtonText: LocaleKeys.clear.tr(),
-                  onSecondButtonTap: () {
-                    _addExercise(
-                        Exercise(
-                          title: _titleController.text,
-                          sets: _setsController.text,
-                          reps: _repsController.text,
-                          weight: _weightController.text,
-                          time: _timeController.text,
-                          description: _descriptionController.text,
-                          isComlete: false,
-                        ),
-                        training,
-                        widget.index);
-                  },
-                  secondButtonText: LocaleKeys.add.tr());
-            },
-            icon: const Icon(Icons.add),
+    return WillPopScope(
+      child: AppBar(
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: IconButton(
+              splashRadius: 30,
+              onPressed: () {
+                showAddingForm(
+                    context: context,
+                    descriptionController: _descriptionController,
+                    setsController: _setsController,
+                    repsController: _repsController,
+                    timeController: _timeController,
+                    titleController: _titleController,
+                    weightController: _weightController,
+                    onFirstButtonTap: _clearTextField,
+                    firstButtonText: LocaleKeys.clear.tr(),
+                    onSecondButtonTap: () {
+                      _addExercise(
+                          Exercise(
+                            title: _titleController.text,
+                            sets: _setsController.text,
+                            reps: _repsController.text,
+                            weight: _weightController.text,
+                            time: _timeController.text,
+                            description: _descriptionController.text,
+                            isComlete: false,
+                          ),
+                          training,
+                          widget.index);
+                    },
+                    secondButtonText: LocaleKeys.add.tr());
+              },
+              icon: const Icon(Icons.add),
+            ),
           ),
-        ),
-      ],
-      title: Text(widget.title ?? ''),
+        ],
+        title: Text(widget.title ?? ''),
+        // )),
+      ),
+      onWillPop: () async {
+        if (!widget.stopWatchModel.canClose &
+            !widget.stopWatchModel.timerPaused) {
+          return true;
+        }
+
+        final value = await showDialog<bool>(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text(
+                  'Выйти из тренировки?',
+                ),
+                actions: <Widget>[
+                  NegativeButton(
+                    text: 'Нет',
+                    onTap: () {
+                      Navigator.of(context).pop(false);
+                    },
+                  ),
+                  PositiveButton(
+                    text: 'Да',
+                    onTap: () {
+                      Navigator.of(context).pop(true);
+                    },
+                  ),
+                ],
+              );
+            });
+        return value == true;
+      },
     );
   }
 
@@ -123,6 +162,10 @@ class _ExercisesAppBarState extends State<ExercisesAppBar>
     MainRouter().pop();
     if (_titleController.text.isNotEmpty) {
       _exercisesCubit.addExercise(exercise, training, index);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(LocaleKeys.exerciseAdded
+            .tr(args: ["\"${_titleController.text}\""])),
+      ));
     }
     _clearTextField();
   }

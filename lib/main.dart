@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -77,8 +76,5 @@ List<BlocProvider> _blockProviders() {
     BlocProvider<TrainingsCubit>(
       create: (context) => getIt<TrainingsCubit>(),
     ),
-    // BlocProvider<StopwatchCubit>(
-    //   create: (context) => StopwatchCubit(getIt<IsarProvider>()),
-    // ),
   ];
 }

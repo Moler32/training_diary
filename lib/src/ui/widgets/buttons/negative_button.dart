@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ClearButton extends StatelessWidget {
-  const ClearButton({super.key, required this.onTap, required this.text});
+class NegativeButton extends StatelessWidget {
+  const NegativeButton({super.key, required this.onTap, required this.text});
 
   final Function()? onTap;
   final String text;

@@ -23,6 +23,9 @@ class LanguageMenuItem extends StatelessWidget {
             height: 30,
             child: Image.asset(image),
           ),
+          SizedBox(
+            width: 15,
+          ),
           Text(title),
         ],
       ),

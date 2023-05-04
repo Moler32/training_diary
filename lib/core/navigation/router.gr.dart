@@ -14,8 +14,6 @@
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/cupertino.dart' as _i6;
 import 'package:flutter/material.dart' as _i5;
-import 'package:training_diary/src/cubit/stopwatch_cubit/stopwatch_cubit.dart'
-    as _i8;
 import 'package:training_diary/src/models/trainings/training_model.dart' as _i7;
 import 'package:training_diary/src/ui/screens/exercises/pages/exercises_page.dart'
     as _i2;
@@ -45,7 +43,6 @@ class AppRouter extends _i4.RootStackRouter {
           title: args.title,
           index: args.index,
           training: args.training,
-          stopwatchCubit: args.stopwatchCubit,
         ),
       );
     },
@@ -94,7 +91,6 @@ class ExercisesRoute extends _i4.PageRouteInfo<ExercisesRouteArgs> {
     String? title,
     required int index,
     required _i7.Training training,
-    required _i8.StopwatchCubit stopwatchCubit,
   }) : super(
           ExercisesRoute.name,
           path: '/exercises-page',
@@ -103,7 +99,6 @@ class ExercisesRoute extends _i4.PageRouteInfo<ExercisesRouteArgs> {
             title: title,
             index: index,
             training: training,
-            stopwatchCubit: stopwatchCubit,
           ),
         );
 
@@ -116,7 +111,6 @@ class ExercisesRouteArgs {
     this.title,
     required this.index,
     required this.training,
-    required this.stopwatchCubit,
   });
 
   final _i6.Key? key;
@@ -127,11 +121,9 @@ class ExercisesRouteArgs {
 
   final _i7.Training training;
 
-  final _i8.StopwatchCubit stopwatchCubit;
-
   @override
   String toString() {
-    return 'ExercisesRouteArgs{key: $key, title: $title, index: $index, training: $training, stopwatchCubit: $stopwatchCubit}';
+    return 'ExercisesRouteArgs{key: $key, title: $title, index: $index, training: $training}';
   }
 }
 
